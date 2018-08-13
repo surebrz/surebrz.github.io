@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ruby,rmva," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="方便查看一整张大图型序列帧动画的工具">
+<meta name="keywords" content="ruby,rmva">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RMVA序列帧动画查看工具">
+<meta property="og:url" content="http://www.surebrz.com/2016/06/08/rmva-anim-viewer/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="方便查看一整张大图型序列帧动画的工具">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/a94a86cbjw1f4np5m7jjbj20fa0ccmxu.jpg">
+<meta property="og:updated_time" content="2018-08-12T23:26:00.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RMVA序列帧动画查看工具">
+<meta name="twitter:description" content="方便查看一整张大图型序列帧动画的工具">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw690/a94a86cbjw1f4np5m7jjbj20fa0ccmxu.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2016/06/08/rmva-anim-viewer/"/>
+
+
+
+
+
+  <title>RMVA序列帧动画查看工具 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2016/06/08/rmva-anim-viewer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RMVA序列帧动画查看工具</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-08T12:10:38+08:00">
+                2016-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/成品/" itemprop="url" rel="index">
+                    <span itemprop="name">成品</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/06/08/rmva-anim-viewer/" class="leancloud_visitors" data-flag-title="RMVA序列帧动画查看工具">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>方便查看一整张大图型序列帧动画的工具<br><a id="more"></a></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">=begin</span></span><br><span class="line"><span class="comment">序列帧动画查看器，方便查看每帧宽高相等的序列帧动画</span></span><br><span class="line"><span class="comment">                                  -- by 烁灵</span></span><br><span class="line"><span class="comment">使用：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">* 将大图放在Graphics/Pictures里</span></span><br><span class="line"><span class="comment">* 在game.ini中增加以下设置</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">[Ani_View]</span></span><br><span class="line"><span class="comment">ROW=8</span></span><br><span class="line"><span class="comment">COL=8</span></span><br><span class="line"><span class="comment">SPEED=1</span></span><br><span class="line"><span class="comment">FILENAME=anim</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">其中：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">ROW : 行数</span></span><br><span class="line"><span class="comment">COL : 列数</span></span><br><span class="line"><span class="comment">SPEED : 播放速度（帧间隔，越大越慢）</span></span><br><span class="line"><span class="comment">FILENAME : 图片名</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">=end</span></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Sl_Settings</span></span></span><br><span class="line">  <span class="class"><span class="keyword">module</span> <span class="title">Ani_View</span></span></span><br><span class="line"></span><br><span class="line">    SPD = <span class="number">1</span></span><br><span class="line">    FLN = <span class="string">"anim"</span></span><br><span class="line"></span><br><span class="line">    GetPrivateProfileString = Win32API.new(<span class="string">'kernel32'</span>, <span class="string">'GetPrivateProfileString'</span>, <span class="string">'ppppip'</span>, <span class="string">'i'</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_info</span><span class="params">(key, default_value)</span></span></span><br><span class="line">      buffer = [].pack(<span class="string">'x256'</span>)</span><br><span class="line">      section = <span class="string">'Ani_View'</span></span><br><span class="line">      filename = <span class="string">'./Game.ini'</span></span><br><span class="line">      get_option = Proc.new <span class="keyword">do</span> <span class="params">|key, default_value|</span></span><br><span class="line">        l = GetPrivateProfileString.call(section, key, default_value, buffer, buffer.size, filename)</span><br><span class="line">        buffer[<span class="number">0</span>, l]</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">return</span> get_option.call(key, default_value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">row</span></span></span><br><span class="line">      get_info(<span class="string">'ROW'</span>, <span class="string">'1'</span>).to_i</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">col</span></span></span><br><span class="line">      get_info(<span class="string">'COL'</span>, <span class="string">'1'</span>).to_i</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spd</span></span></span><br><span class="line">      get_info(<span class="string">'SPEED'</span>, <span class="string">'1'</span>).to_i</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">filename</span></span></span><br><span class="line">      get_info(<span class="string">'FILENAME'</span>, <span class="string">'anim'</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">SceneManager</span></span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> &lt;&lt; self</span></span><br><span class="line">    <span class="keyword">include</span> Sl_Settings::Ani_View</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span></span></span><br><span class="line">      args = $BTEST ? [] : [row, col, spd, filename]</span><br><span class="line">      @scene = first_scene_class.new(*args)</span><br><span class="line">      @scene.main <span class="keyword">while</span> @scene</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">first_scene_class</span></span></span><br><span class="line">      $BTEST ? Scene_Battle : Scene_Ani</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Scene_Ani</span> &lt; Scene_Base</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(row, col, speed = Sl_Settings::Ani_View::SPD, filename = Sl_Settings::Ani_View::FLN)</span></span></span><br><span class="line">    <span class="keyword">super</span>()</span><br><span class="line">    @row = row</span><br><span class="line">    @col = col</span><br><span class="line">    @filename = filename</span><br><span class="line">    @speed = speed</span><br><span class="line">    @frame = <span class="number">0</span></span><br><span class="line">    @frame_cnt = <span class="number">0</span></span><br><span class="line">    @sprite = Sprite.new</span><br><span class="line">    @sprite.bitmap = Cache.picture(@filename)</span><br><span class="line">    w = @sprite.bitmap.width / @col</span><br><span class="line">    h = @sprite.bitmap.height / @row</span><br><span class="line">    @sprite.x = (Graphics.width - w) / <span class="number">2</span></span><br><span class="line">    @sprite.y = (Graphics.width - h) / <span class="number">2</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update</span></span></span><br><span class="line">    <span class="keyword">super</span></span><br><span class="line">    update_ani <span class="keyword">if</span> @frame_cnt % @speed == <span class="number">0</span></span><br><span class="line">    @frame_cnt += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> Input.trigger?(<span class="symbol">:C</span>) <span class="params">||</span> Input.trigger?(<span class="symbol">:B</span>)</span><br><span class="line">      SceneManager.exit</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">update_ani</span></span></span><br><span class="line">    x = @frame % @col</span><br><span class="line">    y = @frame / @col</span><br><span class="line">    w = @sprite.bitmap.width / @col</span><br><span class="line">    h = @sprite.bitmap.height / @row</span><br><span class="line">    rect = Rect.new(x * w, y * h, w, h)</span><br><span class="line">    @sprite.src_rect = rect</span><br><span class="line">    @frame += <span class="number">1</span></span><br><span class="line">    @frame %= @row * @col</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">terminate</span></span></span><br><span class="line">    <span class="keyword">super</span></span><br><span class="line">    @sprite.dispose</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>预览：<br><img src="http://ww4.sinaimg.cn/mw690/a94a86cbjw1f4np5m7jjbj20fa0ccmxu.jpg" alt="预览图"></p>
+<p>范例<a href="http://pan.baidu.com/s/1o7V29jc" target="_blank" rel="noopener">点我</a></p>
+<ul>
+<li>范例中使用的图片作者为<a href="http://opengameart.org/content/basic-explosion" target="_blank" rel="noopener">elnineo</a>，来自OpenGameArt.org</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ruby/" rel="tag"># ruby</a>
+          
+            <a href="/tags/rmva/" rel="tag"># rmva</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/13/rmva-use-texturepacker-bitmap/" rel="next" title="RMVA 使用TexturePacker打包的图集">
+                <i class="fa fa-chevron-left"></i> RMVA 使用TexturePacker打包的图集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/12/cocos2dx-2-x-libpng-googleplay/" rel="prev" title="cocos2dx-2.x解决GooglePlay警告的libpng版本问题">
+                cocos2dx-2.x解决GooglePlay警告的libpng版本问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank">
+      <img src="http://www.reliablecounter.com/count.php?page=www.surebrz.com2&digit=style/scoreboards/9/&reloads=1" alt="www.reliablecounter.com" title="www.reliablecounter.com" border="0">
+    </a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ruby,rmva," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="试着读取tp图集，对旋转后的图片没有什么好的还原思路，bitmap没办法旋转，目前是创建精灵然后旋转，不建议勾选。">
+<meta name="keywords" content="ruby,rmva">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RMVA 使用TexturePacker打包的图集">
+<meta property="og:url" content="http://www.surebrz.com/2016/05/13/rmva-use-texturepacker-bitmap/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="试着读取tp图集，对旋转后的图片没有什么好的还原思路，bitmap没办法旋转，目前是创建精灵然后旋转，不建议勾选。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-12T23:26:00.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RMVA 使用TexturePacker打包的图集">
+<meta name="twitter:description" content="试着读取tp图集，对旋转后的图片没有什么好的还原思路，bitmap没办法旋转，目前是创建精灵然后旋转，不建议勾选。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2016/05/13/rmva-use-texturepacker-bitmap/"/>
+
+
+
+
+
+  <title>RMVA 使用TexturePacker打包的图集 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2016/05/13/rmva-use-texturepacker-bitmap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RMVA 使用TexturePacker打包的图集</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-13T10:03:52+08:00">
+                2016-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/成品/" itemprop="url" rel="index">
+                    <span itemprop="name">成品</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/05/13/rmva-use-texturepacker-bitmap/" class="leancloud_visitors" data-flag-title="RMVA 使用TexturePacker打包的图集">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>试着读取tp图集，对旋转后的图片没有什么好的还原思路，bitmap没办法旋转，目前是创建精灵然后旋转，不建议勾选。<br><a id="more"></a></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">=begin</span></span><br><span class="line"><span class="comment">读取TexturePacker导出的cocos格式plist图集</span></span><br><span class="line"><span class="comment">rotated旋转后的图片在rm中不便还原为原bitmap，编辑图集时不建议勾选Allow rotation</span></span><br><span class="line"><span class="comment">                                  -- by 烁灵</span></span><br><span class="line"><span class="comment">用法：</span></span><br><span class="line"><span class="comment">    取得plist中图片对应的bitmap</span></span><br><span class="line"><span class="comment">    PlistManager.bitmap(plist_name, pic_name)</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    取得plist中图片对应的rect</span></span><br><span class="line"><span class="comment">    PlistManager.rect(plist_name, pic_name)</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    根据plist和图片名创建精灵</span></span><br><span class="line"><span class="comment">    sprite = Sprite_Plist.new(plist_name, pic_name, viewport)</span></span><br><span class="line"><span class="comment">=end</span></span><br><span class="line"><span class="comment"># ruby 1.9.1 lib</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CGI</span></span></span><br><span class="line">  @@accept_charset=<span class="string">"UTF-8"</span> <span class="keyword">unless</span> <span class="keyword">defined</span>?(@@accept_charset)</span><br><span class="line">  <span class="comment"># URL-encode a string.</span></span><br><span class="line">  <span class="comment">#   url_encoded_string = CGI::escape("'Stop!' said Fred")</span></span><br><span class="line">  <span class="comment">#      # =&gt; "%27Stop%21%27+said+Fred"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">escape</span><span class="params">(string)</span></span></span><br><span class="line">    string.gsub(<span class="regexp">/([^ a-zA-Z0-9_.-]+)/</span>) <span class="keyword">do</span></span><br><span class="line">      <span class="string">'%'</span> + $1.unpack(<span class="string">'H2'</span> * $1.bytesize).join(<span class="string">'%'</span>).upcase</span><br><span class="line">    <span class="keyword">end</span>.tr(<span class="string">' '</span>, <span class="string">'+'</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># URL-decode a string with encoding(optional).</span></span><br><span class="line">  <span class="comment">#   string = CGI::unescape("%27Stop%21%27+said+Fred")</span></span><br><span class="line">  <span class="comment">#      # =&gt; "'Stop!' said Fred"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">unescape</span><span class="params">(string,encoding=@@accept_charset)</span></span></span><br><span class="line">    str=string.tr(<span class="string">'+'</span>, <span class="string">' '</span>).force_encoding(Encoding::ASCII_8BIT).gsub(<span class="regexp">/((?:%[0-9a-fA-F]&#123;2&#125;)+)/</span>) <span class="keyword">do</span></span><br><span class="line">      [$1.delete(<span class="string">'%'</span>)].pack(<span class="string">'H*'</span>)</span><br><span class="line">    <span class="keyword">end</span>.force_encoding(encoding)</span><br><span class="line">    str.valid_encoding? ? str : str.force_encoding(string.encoding)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># The set of special characters and their escaped values</span></span><br><span class="line">  TABLE_FOR_ESCAPE_HTML_<span class="number">_</span> = &#123;</span><br><span class="line">    <span class="string">'&amp;'</span> =&gt; <span class="string">'&amp;amp;'</span>,</span><br><span class="line">    <span class="string">'"'</span> =&gt; <span class="string">'&amp;quot;'</span>,</span><br><span class="line">    <span class="string">'&lt;'</span> =&gt; <span class="string">'&amp;lt;'</span>,</span><br><span class="line">    <span class="string">'&gt;'</span> =&gt; <span class="string">'&amp;gt;'</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Escape special characters in HTML, namely &amp;\"&lt;&gt;</span></span><br><span class="line">  <span class="comment">#   CGI::escapeHTML('Usage: foo "bar" &lt;baz&gt;')</span></span><br><span class="line">  <span class="comment">#      # =&gt; "Usage: foo &amp;quot;bar&amp;quot; &amp;lt;baz&amp;gt;"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">escapeHTML</span><span class="params">(string)</span></span></span><br><span class="line">    string.gsub(<span class="regexp">/[&amp;\"&lt;&gt;]/</span>, TABLE_FOR_ESCAPE_HTML_<span class="number">_</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Unescape a string that has been HTML-escaped</span></span><br><span class="line">  <span class="comment">#   CGI::unescapeHTML("Usage: foo &amp;quot;bar&amp;quot; &amp;lt;baz&amp;gt;")</span></span><br><span class="line">  <span class="comment">#      # =&gt; "Usage: foo \"bar\" &lt;baz&gt;"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">unescapeHTML</span><span class="params">(string)</span></span></span><br><span class="line">    enc = string.encoding</span><br><span class="line">    <span class="keyword">if</span> [Encoding::UTF_16BE, Encoding::UTF_16LE, Encoding::UTF_32BE, Encoding::UTF_32LE].<span class="keyword">include</span>?(enc)</span><br><span class="line">      <span class="keyword">return</span> string.gsub(Regexp.new(<span class="string">'&amp;(amp|quot|gt|lt|#[0-9]+|#x[0-9A-Fa-f]+);'</span>.encode(enc))) <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">case</span> $1.encode(<span class="string">"US-ASCII"</span>)</span><br><span class="line">        <span class="keyword">when</span> <span class="string">'amp'</span>                 <span class="keyword">then</span> <span class="string">'&amp;'</span>.encode(enc)</span><br><span class="line">        <span class="keyword">when</span> <span class="string">'quot'</span>                <span class="keyword">then</span> <span class="string">'"'</span>.encode(enc)</span><br><span class="line">        <span class="keyword">when</span> <span class="string">'gt'</span>                  <span class="keyword">then</span> <span class="string">'&gt;'</span>.encode(enc)</span><br><span class="line">        <span class="keyword">when</span> <span class="string">'lt'</span>                  <span class="keyword">then</span> <span class="string">'&lt;'</span>.encode(enc)</span><br><span class="line">        <span class="keyword">when</span> /\A<span class="comment">#0*(\d+)\z/        then $1.to_i.chr(enc)</span></span><br><span class="line">        <span class="keyword">when</span> /\A<span class="comment">#x([0-9a-f]+)\z/i  then $1.hex.chr(enc)</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    asciicompat = Encoding.compatible?(string, <span class="string">"a"</span>)</span><br><span class="line">    string.gsub(<span class="regexp">/&amp;(amp|quot|gt|lt|\#[0-9]+|\#x[0-9A-Fa-f]+);/</span>) <span class="keyword">do</span></span><br><span class="line">      match = $1.dup</span><br><span class="line">      <span class="keyword">case</span> match</span><br><span class="line">      <span class="keyword">when</span> <span class="string">'amp'</span>                 <span class="keyword">then</span> <span class="string">'&amp;'</span></span><br><span class="line">      <span class="keyword">when</span> <span class="string">'quot'</span>                <span class="keyword">then</span> <span class="string">'"'</span></span><br><span class="line">      <span class="keyword">when</span> <span class="string">'gt'</span>                  <span class="keyword">then</span> <span class="string">'&gt;'</span></span><br><span class="line">      <span class="keyword">when</span> <span class="string">'lt'</span>                  <span class="keyword">then</span> <span class="string">'&lt;'</span></span><br><span class="line">      <span class="keyword">when</span> /\A<span class="comment">#0*(\d+)\z/</span></span><br><span class="line">        n = $1.to_i</span><br><span class="line">        <span class="keyword">if</span> enc == Encoding::UTF_8 <span class="keyword">or</span></span><br><span class="line">          enc == Encoding::ISO_8859_1 &amp;&amp; n &lt; <span class="number">256</span> <span class="keyword">or</span></span><br><span class="line">          asciicompat &amp;&amp; n &lt; <span class="number">128</span></span><br><span class="line">          n.chr(enc)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          <span class="string">"&amp;#<span class="subst">#&#123;$1&#125;</span>;"</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">when</span> /\A<span class="comment">#x([0-9a-f]+)\z/i</span></span><br><span class="line">        n = $1.hex</span><br><span class="line">        <span class="keyword">if</span> enc == Encoding::UTF_8 <span class="keyword">or</span></span><br><span class="line">          enc == Encoding::ISO_8859_1 &amp;&amp; n &lt; <span class="number">256</span> <span class="keyword">or</span></span><br><span class="line">          asciicompat &amp;&amp; n &lt; <span class="number">128</span></span><br><span class="line">          n.chr(enc)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          <span class="string">"&amp;#x<span class="subst">#&#123;$1&#125;</span>;"</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="string">"&amp;<span class="subst">#&#123;match&#125;</span>;"</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Synonym for CGI::escapeHTML(str)</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">escape_html</span><span class="params">(str)</span></span></span><br><span class="line">    escapeHTML(str)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Synonym for CGI::unescapeHTML(str)</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">unescape_html</span><span class="params">(str)</span></span></span><br><span class="line">    unescapeHTML(str)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Escape only the tags of certain HTML elements in +string+.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># Takes an element or elements or array of elements.  Each element</span></span><br><span class="line">  <span class="comment"># is specified by the name of the element, without angle brackets.</span></span><br><span class="line">  <span class="comment"># This matches both the start and the end tag of that element.</span></span><br><span class="line">  <span class="comment"># The attribute list of the open tag will also be escaped (for</span></span><br><span class="line">  <span class="comment"># instance, the double-quotes surrounding attribute values).</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::escapeElement('&lt;BR&gt;&lt;A HREF="url"&gt;&lt;/A&gt;', "A", "IMG")</span></span><br><span class="line">  <span class="comment">#     # "&lt;BR&gt;&amp;lt;A HREF=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/A&amp;gt"</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::escapeElement('&lt;BR&gt;&lt;A HREF="url"&gt;&lt;/A&gt;', ["A", "IMG"])</span></span><br><span class="line">  <span class="comment">#     # "&lt;BR&gt;&amp;lt;A HREF=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/A&amp;gt"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">escapeElement</span><span class="params">(string, *elements)</span></span></span><br><span class="line">    elements = elements[<span class="number">0</span>] <span class="keyword">if</span> elements[<span class="number">0</span>].kind_of?(Array)</span><br><span class="line">    <span class="keyword">unless</span> elements.empty?</span><br><span class="line">      string.gsub(<span class="regexp">/&lt;\/?(?:<span class="subst">#&#123;elements.join(<span class="string">"|"</span>)&#125;</span>)(?!\w)(?:.|\n)*?&gt;/i</span>) <span class="keyword">do</span></span><br><span class="line">        CGI::escapeHTML($&amp;)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      string</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Undo escaping such as that done by CGI::escapeElement()</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::unescapeElement(</span></span><br><span class="line">  <span class="comment">#           CGI::escapeHTML('&lt;BR&gt;&lt;A HREF="url"&gt;&lt;/A&gt;'), "A", "IMG")</span></span><br><span class="line">  <span class="comment">#     # "&amp;lt;BR&amp;gt;&lt;A HREF="url"&gt;&lt;/A&gt;"</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::unescapeElement(</span></span><br><span class="line">  <span class="comment">#           CGI::escapeHTML('&lt;BR&gt;&lt;A HREF="url"&gt;&lt;/A&gt;'), ["A", "IMG"])</span></span><br><span class="line">  <span class="comment">#     # "&amp;lt;BR&amp;gt;&lt;A HREF="url"&gt;&lt;/A&gt;"</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">unescapeElement</span><span class="params">(string, *elements)</span></span></span><br><span class="line">    elements = elements[<span class="number">0</span>] <span class="keyword">if</span> elements[<span class="number">0</span>].kind_of?(Array)</span><br><span class="line">    <span class="keyword">unless</span> elements.empty?</span><br><span class="line">      string.gsub(<span class="regexp">/&amp;lt;\/?(?:<span class="subst">#&#123;elements.join(<span class="string">"|"</span>)&#125;</span>)(?!\w)(?:.|\n)*?&amp;gt;/i</span>) <span class="keyword">do</span></span><br><span class="line">        CGI::unescapeHTML($&amp;)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      string</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Synonym for CGI::escapeElement(str)</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">escape_element</span><span class="params">(str)</span></span></span><br><span class="line">    escapeElement(str)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># Synonym for CGI::unescapeElement(str)</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">unescape_element</span><span class="params">(str)</span></span></span><br><span class="line">    unescapeElement(str)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Abbreviated day-of-week names specified by RFC 822</span></span><br><span class="line">  RFC822_DAYS = <span class="string">%w[ Sun Mon Tue Wed Thu Fri Sat ]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Abbreviated month names specified by RFC 822</span></span><br><span class="line">  RFC822_MONTHS = <span class="string">%w[ Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec ]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Format a +Time+ object as a String using the format specified by RFC 1123.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   CGI::rfc1123_date(Time.now)</span></span><br><span class="line">  <span class="comment">#     # Sat, 01 Jan 2000 00:00:00 GMT</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">rfc1123_date</span><span class="params">(time)</span></span></span><br><span class="line">    t = time.clone.gmtime</span><br><span class="line">    <span class="keyword">return</span> format(<span class="string">"%s, %.2d %s %.4d %.2d:%.2d:%.2d GMT"</span>,</span><br><span class="line">                RFC822_DAYS[t.wday], t.day, RFC822_MONTHS[t.month-<span class="number">1</span>], t.year,</span><br><span class="line">                t.hour, t.min, t.sec)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Prettify (indent) an HTML string.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># +string+ is the HTML string to indent.  +shift+ is the indentation</span></span><br><span class="line">  <span class="comment"># unit to use; it defaults to two spaces.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::pretty("&lt;HTML&gt;&lt;BODY&gt;&lt;/BODY&gt;&lt;/HTML&gt;")</span></span><br><span class="line">  <span class="comment">#     # &lt;HTML&gt;</span></span><br><span class="line">  <span class="comment">#     #   &lt;BODY&gt;</span></span><br><span class="line">  <span class="comment">#     #   &lt;/BODY&gt;</span></span><br><span class="line">  <span class="comment">#     # &lt;/HTML&gt;</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   print CGI::pretty("&lt;HTML&gt;&lt;BODY&gt;&lt;/BODY&gt;&lt;/HTML&gt;", "\t")</span></span><br><span class="line">  <span class="comment">#     # &lt;HTML&gt;</span></span><br><span class="line">  <span class="comment">#     #         &lt;BODY&gt;</span></span><br><span class="line">  <span class="comment">#     #         &lt;/BODY&gt;</span></span><br><span class="line">  <span class="comment">#     # &lt;/HTML&gt;</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">CGI</span>::<span class="title">pretty</span><span class="params">(string, shift = <span class="string">"  "</span>)</span></span></span><br><span class="line">    lines = string.gsub(<span class="regexp">/(?!\A)&lt;.*?&gt;/m</span>, <span class="string">"\n\\0"</span>).gsub(<span class="regexp">/&lt;.*?&gt;(?!\n)/m</span>, <span class="string">"\\0\n"</span>)</span><br><span class="line">    end_pos = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> end_pos = lines.index(<span class="regexp">/^&lt;\/(\w+)/</span>, end_pos)</span><br><span class="line">      element = $1.dup</span><br><span class="line">      start_pos = lines.rindex(<span class="regexp">/^\s*&lt;<span class="subst">#&#123;element&#125;</span>/i</span>, end_pos)</span><br><span class="line">      lines[start_pos ... end_pos] = <span class="string">"__"</span> + lines[start_pos ... end_pos].gsub(<span class="regexp">/\n(?!\z)/</span>, <span class="string">"\n"</span> + shift) + <span class="string">"__"</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    lines.gsub(<span class="regexp">/^((?:<span class="subst">#&#123;Regexp::quote(shift)&#125;</span>)*)__(?=&lt;\/?\w)/</span>, <span class="string">'\1'</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># = base64.rb: methods for base64-encoding and -decoding strings</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The Base64 module provides for the encoding (#encode64, #strict_encode64,</span></span><br><span class="line"><span class="comment"># #urlsafe_encode64) and decoding (#decode64, #strict_decode64,</span></span><br><span class="line"><span class="comment"># #urlsafe_decode64) of binary data using a Base64 representation.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># == Example</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># A simple encoding and decoding.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     require "base64"</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     enc   = Base64.encode64('Send reinforcements')</span></span><br><span class="line"><span class="comment">#                         # -&gt; "U2VuZCByZWluZm9yY2VtZW50cw==\n"</span></span><br><span class="line"><span class="comment">#     plain = Base64.decode64(enc)</span></span><br><span class="line"><span class="comment">#                         # -&gt; "Send reinforcements"</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The purpose of using base64 to encode data is that it translates any</span></span><br><span class="line"><span class="comment"># binary data into purely printable characters.</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">Base64</span></span></span><br><span class="line">  module_function</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-encoded version of +bin+.</span></span><br><span class="line">  <span class="comment"># This method complies with RFC 2045.</span></span><br><span class="line">  <span class="comment"># Line feeds are added to every 60 encoded charactors.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#    require 'base64'</span></span><br><span class="line">  <span class="comment">#    Base64.encode64("Now is the time for all good coders\nto learn Ruby")</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># &lt;i&gt;Generates:&lt;/i&gt;</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#    Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g</span></span><br><span class="line">  <span class="comment">#    UnVieQ==</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">encode64</span><span class="params">(bin)</span></span></span><br><span class="line">    [bin].pack(<span class="string">"m"</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-decoded version of +str+.</span></span><br><span class="line">  <span class="comment"># This method complies with RFC 2045.</span></span><br><span class="line">  <span class="comment"># Characters outside the base alphabet are ignored.</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#   require 'base64'</span></span><br><span class="line">  <span class="comment">#   str = 'VGhpcyBpcyBsaW5lIG9uZQpUaGlzIG' +</span></span><br><span class="line">  <span class="comment">#         'lzIGxpbmUgdHdvClRoaXMgaXMgbGlu' +</span></span><br><span class="line">  <span class="comment">#         'ZSB0aHJlZQpBbmQgc28gb24uLi4K'</span></span><br><span class="line">  <span class="comment">#   puts Base64.decode64(str)</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment"># &lt;i&gt;Generates:&lt;/i&gt;</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#    This is line one</span></span><br><span class="line">  <span class="comment">#    This is line two</span></span><br><span class="line">  <span class="comment">#    This is line three</span></span><br><span class="line">  <span class="comment">#    And so on...</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">decode64</span><span class="params">(str)</span></span></span><br><span class="line">    str.unpack(<span class="string">"m"</span>).first</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-encoded version of +bin+.</span></span><br><span class="line">  <span class="comment"># This method complies with RFC 4648.</span></span><br><span class="line">  <span class="comment"># No line feeds are added.</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">strict_encode64</span><span class="params">(bin)</span></span></span><br><span class="line">    [bin].pack(<span class="string">"m0"</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-decoded version of +str+.</span></span><br><span class="line">  <span class="comment"># This method complies with RFC 4648.</span></span><br><span class="line">  <span class="comment"># ArgumentError is raised if +str+ is incorrectly padded or contains</span></span><br><span class="line">  <span class="comment"># non-alphabet characters.  Note that CR or LF are also rejected.</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">strict_decode64</span><span class="params">(str)</span></span></span><br><span class="line">    str.unpack(<span class="string">"m0"</span>).first</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-encoded version of +bin+.</span></span><br><span class="line">  <span class="comment"># This method complies with ``Base 64 Encoding with URL and Filename Safe</span></span><br><span class="line">  <span class="comment"># Alphabet'' in RFC 4648.</span></span><br><span class="line">  <span class="comment"># The alphabet uses '-' instead of '+' and '_' instead of '/'.</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">urlsafe_encode64</span><span class="params">(bin)</span></span></span><br><span class="line">    strict_encode64(bin).tr(<span class="string">"+/"</span>, <span class="string">"-_"</span>)</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Returns the Base64-decoded version of +str+.</span></span><br><span class="line">  <span class="comment"># This method complies with ``Base 64 Encoding with URL and Filename Safe</span></span><br><span class="line">  <span class="comment"># Alphabet'' in RFC 4648.</span></span><br><span class="line">  <span class="comment"># The alphabet uses '-' instead of '+' and '_' instead of '/'.</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">urlsafe_decode64</span><span class="params">(str)</span></span></span><br><span class="line">    strict_decode64(str.tr(<span class="string">"-_"</span>, <span class="string">"+/"</span>))</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># xmlplist parser</span></span><br><span class="line"><span class="comment"># clone from https://github.com/seki/XMLPlist.git</span></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">XMLPlist</span></span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Emitter</span></span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span></span></span><br><span class="line">      @fiber = Fiber.new <span class="keyword">do</span> <span class="params">|it|</span></span><br><span class="line">        @plist = do_pop(it)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">attr_reader</span> <span class="symbol">:plist</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(it)</span></span></span><br><span class="line">      @fiber.resume(it)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_value</span><span class="params">(obj)</span></span></span><br><span class="line">      push(obj)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_stag</span><span class="params">(name)</span></span></span><br><span class="line">      push(name.intern)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_etag</span><span class="params">(name)</span></span></span><br><span class="line">      push((<span class="string">'etag_'</span> + name).intern)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dict</span></span></span><br><span class="line">      hash = Hash.new</span><br><span class="line">      <span class="keyword">while</span> key = pop_until(<span class="symbol">:etag_dict</span>)</span><br><span class="line">        hash[key] = pop</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      hash</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">array</span></span></span><br><span class="line">      ary = Array.new</span><br><span class="line">      <span class="keyword">while</span> elem = pop_until(<span class="symbol">:etag_array</span>)</span><br><span class="line">        ary.push(elem)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      ary</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop_until</span><span class="params">(symbol)</span></span></span><br><span class="line">      it = pop</span><br><span class="line">      <span class="keyword">return</span> it <span class="keyword">unless</span> Symbol === it</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nil</span> <span class="keyword">if</span> it == symbol</span><br><span class="line">      raise RuntimeError</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span></span></span><br><span class="line">      do_pop(Fiber.<span class="keyword">yield</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_pop</span><span class="params">(it)</span></span></span><br><span class="line">      <span class="keyword">case</span> it</span><br><span class="line">      <span class="keyword">when</span> <span class="symbol">:dict</span></span><br><span class="line">        dict</span><br><span class="line">      <span class="keyword">when</span> <span class="symbol">:array</span></span><br><span class="line">        array</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        it</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">  module_function</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">from_file</span><span class="params">(fname)</span></span></span><br><span class="line">    emitter = Emitter.new</span><br><span class="line">    str = File.read(fname)</span><br><span class="line">    str.scan(<span class="regexp">/&lt;(key|string|data|date|real|integer)&gt;(.*?)&lt;\/\1&gt;|&lt;(true|false)\/&gt;|&lt;(array|dict)&gt;|&lt;\/(array|dict)&gt;/m</span>) <span class="keyword">do</span></span><br><span class="line">      <span class="keyword">if</span> $4</span><br><span class="line">        emitter.on_stag($4)</span><br><span class="line">      <span class="keyword">elsif</span> $5</span><br><span class="line">        emitter.on_etag($5)</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        value = <span class="keyword">if</span> $1</span><br><span class="line">                  <span class="keyword">case</span> $1</span><br><span class="line">                  <span class="keyword">when</span> <span class="string">'key'</span>, <span class="string">'string'</span></span><br><span class="line">                    ($2.<span class="keyword">include</span>?(<span class="string">'&amp;'</span>)) ? CGI::unescapeHTML($2) : $2</span><br><span class="line">                  <span class="keyword">when</span> <span class="string">'data'</span></span><br><span class="line">                    Base64.decode64($2)</span><br><span class="line">                  <span class="keyword">when</span> <span class="string">'date'</span></span><br><span class="line">                    <span class="string">''</span> <span class="comment"># DateTime.parse($2)</span></span><br><span class="line">                  <span class="keyword">when</span> <span class="string">'real'</span></span><br><span class="line">                    $2.to_r</span><br><span class="line">                  <span class="keyword">when</span> <span class="string">'integer'</span></span><br><span class="line">                    $2.to_i</span><br><span class="line">                  <span class="keyword">end</span></span><br><span class="line">                <span class="keyword">elsif</span> $3 == <span class="string">'true'</span></span><br><span class="line">                  <span class="literal">true</span></span><br><span class="line">                <span class="keyword">elsif</span> $3 == <span class="string">'false'</span></span><br><span class="line">                  <span class="literal">false</span></span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                  raise RuntimeError</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">        emitter.on_value(value)</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    plist = emitter.plist</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PlistManager</span></span><br><span class="line"><span class="class"><span class="keyword">module</span> <span class="title">PlistManager</span></span></span><br><span class="line">  FRAMES_KEY = <span class="string">"frames"</span></span><br><span class="line">  FRAME_KEY = <span class="string">"frame"</span></span><br><span class="line">  ROTATED_KEY = <span class="string">"rotated"</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> &lt;&lt; self</span></span><br><span class="line">      <span class="comment"># 加载plist文件</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">load</span><span class="params">(plist)</span></span></span><br><span class="line">        @cache <span class="params">||</span>= &#123;&#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> @cache.<span class="keyword">include</span>?(plist)</span><br><span class="line">          @cache[plist] = XMLPlist.from_file(<span class="string">"Graphics/Plists/<span class="subst">#&#123;plist&#125;</span>.plist"</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">return</span> @cache[plist]</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      <span class="comment"># 返回pic对应的bitmap</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">bitmap</span><span class="params">(plist, pic, hue = <span class="number">0</span>)</span></span></span><br><span class="line">        p plist, pic</span><br><span class="line">        orig_bitmap = Cache.load_bitmap(<span class="string">"Graphics/Plists/"</span>, plist, hue)</span><br><span class="line">        rect = <span class="keyword">self</span>.rect(plist, pic)</span><br><span class="line">        <span class="keyword">if</span> rect </span><br><span class="line">          bitmap = Bitmap.new(rect.width, rect.height)</span><br><span class="line">          bitmap.blt(<span class="number">0</span>, <span class="number">0</span>, orig_bitmap, rect)</span><br><span class="line">          <span class="keyword">return</span> bitmap</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          <span class="keyword">return</span> Bitmap.new(<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      <span class="comment"># 返回pic对应的rect</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">rect</span><span class="params">(plist, pic)</span></span></span><br><span class="line">        orig_bitmap = Cache.load_bitmap(<span class="string">"Graphics/Plists/"</span>, plist)</span><br><span class="line">        obj = <span class="keyword">self</span>.load(plist)</span><br><span class="line">        frame_reg = <span class="regexp">/&#123;&#123;(\d+)?,(\d+)?&#125;,&#123;(\d+)?,(\d+)?&#125;&#125;/im</span></span><br><span class="line">        p obj[FRAMES_KEY][<span class="string">"<span class="subst">#&#123;pic&#125;</span>.png"</span>][FRAME_KEY]</span><br><span class="line">        <span class="keyword">if</span> obj[FRAMES_KEY][<span class="string">"<span class="subst">#&#123;pic&#125;</span>.png"</span>][FRAME_KEY].scan(frame_reg)</span><br><span class="line">          x1 = $1.to_i</span><br><span class="line">          y1 = $2.to_i</span><br><span class="line">          w = $3.to_i</span><br><span class="line">          h = $4.to_i</span><br><span class="line">          <span class="keyword">if</span> rotated?(plist, pic)</span><br><span class="line">            w, h = h, w</span><br><span class="line">          <span class="keyword">end</span></span><br><span class="line">          <span class="keyword">return</span>  Rect.new(x1, y1, w, h)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">          <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">      <span class="comment"># 返回pic是否被旋转</span></span><br><span class="line">      <span class="function"><span class="keyword">def</span> <span class="title">rotated?</span><span class="params">(plist, pic)</span></span></span><br><span class="line">        obj = <span class="keyword">self</span>.load(plist)</span><br><span class="line">        <span class="keyword">return</span> obj[FRAMES_KEY][<span class="string">"<span class="subst">#&#123;pic&#125;</span>.png"</span>][ROTATED_KEY]</span><br><span class="line">      <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sprite_Plist</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sprite_Plist</span> &lt; Sprite_Base</span></span><br><span class="line">  <span class="keyword">attr_accessor</span>     <span class="symbol">:plist_name</span></span><br><span class="line">  <span class="keyword">attr_accessor</span>     <span class="symbol">:pic_name</span></span><br><span class="line">  <span class="keyword">attr_accessor</span>     <span class="symbol">:rotated</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(plist_name, pic_name, viewport=<span class="literal">nil</span>)</span></span></span><br><span class="line">    <span class="keyword">super</span>(viewport)</span><br><span class="line">    @plist_name = plist_name</span><br><span class="line">    @pic_name = pic_name</span><br><span class="line">    orig_bitmap = Cache.load_bitmap(<span class="string">"Graphics/Plists/"</span>, plist_name)</span><br><span class="line"><span class="comment">#~     self.bitmap = orig_bitmap </span></span><br><span class="line"><span class="comment">#~     self.src_rect = PlistManager.rect(plist_name, pic_name)</span></span><br><span class="line">    <span class="keyword">self</span>.bitmap = PlistManager.bitmap(plist_name, pic_name)</span><br><span class="line">    @rotated = PlistManager.rotated?(plist_name, pic_name)</span><br><span class="line">    <span class="keyword">self</span>.angle = <span class="number">90</span> <span class="keyword">if</span> @rotated</span><br><span class="line">    <span class="keyword">self</span>.x = <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.y = <span class="number">0</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">width</span></span></span><br><span class="line">    <span class="keyword">return</span> @rotated ? src_rect.height : src_rect.width</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">height</span></span></span><br><span class="line">    <span class="keyword">return</span> @rotated ? src_rect.width : src_rect.height</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ruby/" rel="tag"># ruby</a>
+          
+            <a href="/tags/rmva/" rel="tag"># rmva</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/05/mv-simple-party-remove-in-menu/" rel="next" title="【RMMV插件】整队时移除队员">
+                <i class="fa fa-chevron-left"></i> 【RMMV插件】整队时移除队员
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/08/rmva-anim-viewer/" rel="prev" title="RMVA序列帧动画查看工具">
+                RMVA序列帧动画查看工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank">
+      <img src="http://www.reliablecounter.com/count.php?page=www.surebrz.com2&digit=style/scoreboards/9/&reloads=1" alt="www.reliablecounter.com" title="www.reliablecounter.com" border="0">
+    </a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

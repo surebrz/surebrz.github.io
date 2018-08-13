@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,lua,quick-cocos,cocos-html," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="仿制RM的Window_Message。富文本模块。">
+<meta name="keywords" content="javascript,lua,quick-cocos,cocos-html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【未完成】Window_Message(雾。。。">
+<meta property="og:url" content="http://www.surebrz.com/2017/02/06/window-message-quickcocos/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="仿制RM的Window_Message。富文本模块。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-12T23:26:00.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【未完成】Window_Message(雾。。。">
+<meta name="twitter:description" content="仿制RM的Window_Message。富文本模块。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2017/02/06/window-message-quickcocos/"/>
+
+
+
+
+
+  <title>【未完成】Window_Message(雾。。。 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2017/02/06/window-message-quickcocos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【未完成】Window_Message(雾。。。</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-06T11:39:35+08:00">
+                2017-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/成品/" itemprop="url" rel="index">
+                    <span itemprop="name">成品</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/02/06/window-message-quickcocos/" class="leancloud_visitors" data-flag-title="【未完成】Window_Message(雾。。。">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>仿制RM的Window_Message。富文本模块。</p>
+<a id="more"></a>
+<p>js版</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">var labelEx = new UIRichText(300) -- width</span></span><br><span class="line"><span class="comment">parent.addChild(labelEx, 100)</span></span><br><span class="line"><span class="comment">labelEx.setPosition(100, self.visibleSize.height)</span></span><br><span class="line"><span class="comment">labelEx.setString("文字$C&lt;3&gt;颜色$C&lt;1&gt;普通颜色$S&lt;36&gt;大小$S&lt;0&gt;普通大小$I&lt;res/HelloWorld.png&gt;←图片$A&lt;TuanZi,walk&gt;动画$n换$n行")</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> UIRichText = UIBase.extend(&#123;</span><br><span class="line">	<span class="comment">//控制字符</span></span><br><span class="line">	C_CHR : <span class="string">"$"</span>,</span><br><span class="line">	<span class="comment">// 单字显示时间间隔</span></span><br><span class="line">	WAIT_FOR_MESSAGE : <span class="number">5</span> / <span class="number">60</span>,</span><br><span class="line">	<span class="comment">//默认字号</span></span><br><span class="line">	DEFAULT_FONT_SIZE : <span class="number">24</span>,</span><br><span class="line">	<span class="comment">// 行间距</span></span><br><span class="line">	DEFAULT_LINE_HEIGHT : <span class="number">12</span>,</span><br><span class="line"></span><br><span class="line">	ctor : <span class="function"><span class="keyword">function</span>(<span class="params">width, show_fast</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>._super();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>._defaultFontSize = <span class="keyword">this</span>.DEFAULT_FONT_SIZE;</span><br><span class="line">		<span class="keyword">this</span>._lineHeight = <span class="keyword">this</span>.DEFAULT_LINE_HEIGHT;</span><br><span class="line">		<span class="keyword">this</span>._width = width;</span><br><span class="line">		<span class="keyword">this</span>._show_fast = !!show_fast;</span><br><span class="line">		<span class="keyword">this</span>._height = <span class="keyword">this</span>._defaultFontSize;</span><br><span class="line">		<span class="keyword">this</span>.clear();</span><br><span class="line">	&#125;,</span><br><span class="line">	clear : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>._contentStr = <span class="string">""</span>;</span><br><span class="line">	 </span><br><span class="line">		<span class="keyword">this</span>._texts = <span class="keyword">this</span>._texts || []; <span class="comment">// 文字</span></span><br><span class="line">		<span class="keyword">this</span>._images = <span class="keyword">this</span>._images || [];   <span class="comment">// 图片</span></span><br><span class="line">		<span class="keyword">this</span>._armatures = <span class="keyword">this</span>._armatures || []; <span class="comment">// 动画</span></span><br><span class="line">		<span class="keyword">this</span>._contents = <span class="keyword">this</span>._contents || [];   <span class="comment">// 包含文字图片等实际顺序的数组</span></span><br><span class="line">		<span class="keyword">this</span>._currentLine = <span class="keyword">this</span>._currentLine || []; <span class="comment">// 渲染中的本行元素</span></span><br><span class="line">		<span class="keyword">this</span>._strIndex = <span class="number">0</span>; <span class="comment">// 遍历的当前字符</span></span><br><span class="line">		<span class="keyword">this</span>._currentColor = <span class="number">0</span>;  <span class="comment">// 当前文字颜色</span></span><br><span class="line">		<span class="keyword">this</span>._currentFontSize = <span class="keyword">this</span>._defaultFontSize;   <span class="comment">// 当前文字大小</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>._texts.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>._texts[i].removeFromParent();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>._images.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>._images[i].removeFromParent();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>._armatures.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>._armatures[i].removeFromParent();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>._texts = [];</span><br><span class="line">		<span class="keyword">this</span>._images = [];</span><br><span class="line">		<span class="keyword">this</span>._armatures = [];</span><br><span class="line">		<span class="keyword">this</span>._contents = [];</span><br><span class="line">		<span class="keyword">this</span>._renderPos = &#123;</span><br><span class="line">						x : <span class="number">0</span>, </span><br><span class="line">						y : <span class="number">0</span>,</span><br><span class="line">						maxHeight : <span class="keyword">this</span>._defaultFontSize   <span class="comment">// 记录本行最大高度</span></span><br><span class="line">					&#125;;</span><br><span class="line">		<span class="keyword">this</span>._currentLine = [];</span><br><span class="line">	 </span><br><span class="line">		<span class="keyword">this</span>.unscheduleUpdate();</span><br><span class="line">		<span class="keyword">this</span>._updateDt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>._showSeq = <span class="number">0</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	onEnter : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>._super();</span><br><span class="line">		<span class="keyword">this</span>.ignoreAnchorPointForPosition(<span class="literal">false</span>);</span><br><span class="line">		<span class="keyword">this</span>.setAnchorPoint(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">	&#125;,</span><br><span class="line">	onExit : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>._super();</span><br><span class="line">		<span class="keyword">this</span>.clear();</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	* 根据代码取文字颜色</span></span><br><span class="line"><span class="comment">	* @code 颜色代码</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	getColor : <span class="function"><span class="keyword">function</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">		code = code || <span class="number">0</span>;</span><br><span class="line">		colors = [</span><br><span class="line">                    cc.color(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),  <span class="comment">// 白色</span></span><br><span class="line">                    cc.color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>),            <span class="comment">// 黑色</span></span><br><span class="line">                    cc.color(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>),          <span class="comment">// 红色</span></span><br><span class="line">                    cc.color(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>),          <span class="comment">// 绿色</span></span><br><span class="line">                    cc.color(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),          <span class="comment">// 蓝色</span></span><br><span class="line">                    cc.color(<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>)         <span class="comment">// 黄色</span></span><br><span class="line">                    ];</span><br><span class="line">		<span class="keyword">return</span> colors[code] || colors[<span class="number">0</span>];</span><br><span class="line">	&#125;,</span><br><span class="line">	setDefaultFontSize : <span class="function"><span class="keyword">function</span>(<span class="params">size</span>) </span>&#123;</span><br><span class="line">		size = size || <span class="keyword">this</span>._defaultFontSize;</span><br><span class="line">		<span class="keyword">if</span> (size &lt; <span class="number">0</span>) &#123;</span><br><span class="line">			size = <span class="keyword">this</span>._defaultFontSize;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>._defaultFontSize = size;</span><br><span class="line">	&#125;,</span><br><span class="line">	setString : <span class="function"><span class="keyword">function</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"setString %s"</span>, str);</span><br><span class="line">		<span class="keyword">this</span>.clear();</span><br><span class="line">		<span class="keyword">this</span>._contentStr = str;</span><br><span class="line">		<span class="keyword">this</span>.refresh();</span><br><span class="line">		<span class="keyword">this</span>.scheduleUpdate();</span><br><span class="line">	&#125;,</span><br><span class="line">	refresh : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (<span class="keyword">this</span>._strIndex &lt; <span class="keyword">this</span>._contentStr.length) &#123;</span><br><span class="line">			<span class="keyword">this</span>.progressContentString();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>._show_fast) &#123;</span><br><span class="line">			<span class="keyword">this</span>._seq = <span class="keyword">this</span>._contentStr.length;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.nextLine();</span><br><span class="line">		<span class="keyword">this</span>._height = <span class="keyword">this</span>._renderPos.y;</span><br><span class="line">		<span class="keyword">this</span>.ignoreAnchorPointForPosition(<span class="literal">false</span>);</span><br><span class="line">		<span class="keyword">this</span>.setAnchorPoint(cc.p(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">		<span class="keyword">this</span>.setContentSize(<span class="keyword">this</span>._width, <span class="keyword">this</span>._height);</span><br><span class="line">		<span class="keyword">this</span>.adjustContentsY();</span><br><span class="line">		<span class="comment">//this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);</span></span><br><span class="line">		<span class="comment">//this.setBackGroundColor(cc.color(0, 255, 0, 100));</span></span><br><span class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>._width, <span class="keyword">this</span>._height);</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 处理特殊字符</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressContentString : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// get one word</span></span><br><span class="line">		<span class="keyword">var</span> str = <span class="keyword">this</span>._contentStr.substr(<span class="keyword">this</span>._strIndex, <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">this</span>._strIndex += <span class="number">1</span>;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"progressContentString %s"</span>, str);</span><br><span class="line">		<span class="keyword">if</span> (str == <span class="string">"\r"</span>) &#123;</span><br><span class="line">			<span class="comment">// 回车</span></span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (str == <span class="string">"\n"</span>) &#123;</span><br><span class="line">			<span class="comment">// 换行</span></span><br><span class="line">			<span class="keyword">this</span>.progressNewLine();</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (str == <span class="keyword">this</span>.C_CHR) &#123;</span><br><span class="line">			<span class="comment">// 控制符开始</span></span><br><span class="line">			<span class="comment">// 处理控制字符，处理中会影响_strIndex</span></span><br><span class="line">			<span class="keyword">this</span>.progressControlChar();</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 普通文字</span></span><br><span class="line">			<span class="keyword">this</span>.progressNormalText(str);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 处理换行</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressNewLine : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.nextLine();</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 处理特殊字符</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressControlChar : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> chr = <span class="keyword">this</span>._contentStr.substr(<span class="keyword">this</span>._strIndex, <span class="number">1</span>);</span><br><span class="line">		<span class="keyword">this</span>._strIndex += <span class="number">1</span>;</span><br><span class="line">		chr = chr.toUpperCase();</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"chr %s"</span>, chr);</span><br><span class="line">		<span class="keyword">var</span> progressFlag = <span class="literal">false</span>;	<span class="comment">// 是否正常解析</span></span><br><span class="line">		<span class="keyword">var</span> progressLen = <span class="number">0</span>; <span class="comment">// 参数字符数</span></span><br><span class="line">		<span class="comment">// get params( first &lt;.*&gt; regexp)</span></span><br><span class="line">		<span class="keyword">var</span> contentToCheck = <span class="keyword">this</span>._contentStr.substr(<span class="keyword">this</span>._strIndex);</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"contentToCheck %s"</span>, contentToCheck);</span><br><span class="line">		<span class="keyword">if</span> (chr == <span class="string">"C"</span>) &#123;</span><br><span class="line">			<span class="comment">// 修改颜色</span></span><br><span class="line">			<span class="keyword">var</span> params = contentToCheck.match(<span class="regexp">/&lt;(\d+?)&gt;/</span>);</span><br><span class="line">			<span class="built_in">console</span>.log(params);</span><br><span class="line">			<span class="keyword">if</span> (params) &#123;</span><br><span class="line">				progressFlag = <span class="keyword">this</span>.changeFontColor(<span class="built_in">parseInt</span>(params[<span class="number">1</span>]));</span><br><span class="line">				progressLen = params[<span class="number">1</span>].length;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"fail changeFontColor"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (chr == <span class="string">"S"</span>) &#123;</span><br><span class="line">			<span class="comment">// 修改字号</span></span><br><span class="line">			<span class="keyword">var</span> params = contentToCheck.match(<span class="regexp">/&lt;(\d+?)&gt;/</span>);</span><br><span class="line">			<span class="built_in">console</span>.log(params);</span><br><span class="line">			<span class="keyword">if</span> (params) &#123;</span><br><span class="line">				progressFlag = <span class="keyword">this</span>.changeFontSize(<span class="built_in">parseInt</span>(params[<span class="number">1</span>]));</span><br><span class="line">				progressLen = params[<span class="number">1</span>].length;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"fail changeFontSize"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (chr == <span class="string">"I"</span>) &#123;</span><br><span class="line">			<span class="comment">// 插入图片</span></span><br><span class="line">			<span class="keyword">var</span> params = contentToCheck.match(<span class="regexp">/&lt;(.+?)&gt;/</span>);</span><br><span class="line">			<span class="built_in">console</span>.log(params);</span><br><span class="line">			<span class="keyword">if</span> (params) &#123;</span><br><span class="line">				progressFlag = <span class="keyword">this</span>.progressImage(params[<span class="number">1</span>]);</span><br><span class="line">				progressLen = params[<span class="number">1</span>].length;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"fail progressImage"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (chr == <span class="string">"A"</span>) &#123;</span><br><span class="line">			<span class="comment">// 插入动画</span></span><br><span class="line">			<span class="keyword">var</span> params = contentToCheck.match(<span class="regexp">/&lt;(\w+?),(\w+?)&gt;/</span>);</span><br><span class="line">			<span class="built_in">console</span>.log(params);</span><br><span class="line">			<span class="keyword">if</span> (params) &#123;</span><br><span class="line">				progressFlag = <span class="keyword">this</span>.progressArmature(params[<span class="number">1</span>], params[<span class="number">2</span>]);</span><br><span class="line">				progressLen = params[<span class="number">1</span>].length + params[<span class="number">2</span>].length + <span class="number">1</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">"fail progressArmature"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (progressFlag) &#123;</span><br><span class="line">			<span class="comment">// 正常解析</span></span><br><span class="line">			<span class="keyword">this</span>._strIndex += <span class="number">2</span>; <span class="comment">// "&lt;&gt;"</span></span><br><span class="line">			<span class="keyword">this</span>._strIndex += progressLen;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// 处理失败，包含$在内均当做普通字符处理</span></span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"fail progress!, last code : %s"</span>, chr);</span><br><span class="line">			<span class="keyword">this</span>._strIndex -= <span class="number">2</span>; <span class="comment">// $X</span></span><br><span class="line">			<span class="keyword">var</span> str = <span class="keyword">this</span>._contentStr.substr(<span class="keyword">this</span>._strIndex, <span class="number">1</span>);</span><br><span class="line">			<span class="keyword">this</span>._strIndex += <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">this</span>.progressNormalText(str);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 处理普通文字</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressNormalText : <span class="function"><span class="keyword">function</span>(<span class="params">chr</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"create ccui.Text %s, size %s"</span>, chr, <span class="keyword">this</span>._currentFontSize);</span><br><span class="line">		<span class="keyword">var</span> uiText = ccui.Text.create(chr, <span class="string">"微软雅黑"</span>, <span class="keyword">this</span>._currentFontSize);</span><br><span class="line">		uiText.setString(chr);</span><br><span class="line">		uiText.setVisible(<span class="keyword">this</span>._show_fast);</span><br><span class="line">		uiText.setFontSize(<span class="keyword">this</span>._currentFontSize);</span><br><span class="line">		uiText.setColor(<span class="keyword">this</span>.getColor(<span class="keyword">this</span>._currentColor));</span><br><span class="line">		<span class="keyword">this</span>.addChild(uiText);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (uiText.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">			uiText:setScale(<span class="keyword">this</span>._width / uiText.getContentSize().width);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>._renderPos.x + uiText.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">			<span class="keyword">this</span>.nextLine();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.setElemPosition(uiText, <span class="keyword">this</span>._renderPos.x, <span class="keyword">this</span>._renderPos.y);</span><br><span class="line">		<span class="keyword">this</span>._renderPos.x += uiText.getContentSize().width;</span><br><span class="line">		<span class="keyword">this</span>._renderPos.maxHeight = (<span class="keyword">this</span>._renderPos.maxHeight &gt; uiText.getContentSize().height) ? <span class="keyword">this</span>._renderPos.maxHeight : uiText.getContentSize().height</span><br><span class="line"></span><br><span class="line">		<span class="keyword">this</span>._texts.push(uiText);</span><br><span class="line">		<span class="keyword">this</span>._contents.push(uiText);</span><br><span class="line">		<span class="keyword">this</span>._currentLine.push(uiText);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 修改颜色</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	changeFontColor : <span class="function"><span class="keyword">function</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!!code || code == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>._currentColor = code;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 修改字号</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	changeFontSize : <span class="function"><span class="keyword">function</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!!code || code == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (code &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">				code = <span class="keyword">this</span>._defaultFontSize;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">this</span>._currentFontSize = code;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 插入图片</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressImage : <span class="function"><span class="keyword">function</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (!!path) &#123;</span><br><span class="line">			<span class="comment">// 暂时只处理单图</span></span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"progress image %s"</span>, path);</span><br><span class="line">			<span class="keyword">var</span> uiImage = ccui.ImageView.create(path, ccui.Widget.LOCAL_TEXTURE);</span><br><span class="line">			uiImage.setVisible(<span class="keyword">this</span>._show_fast);</span><br><span class="line">			<span class="keyword">this</span>.addChild(uiImage);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (uiImage.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">				uiImage:setScale(<span class="keyword">this</span>._width / uiImage.getContentSize().width);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>._renderPos.x + uiImage.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">				<span class="keyword">this</span>.nextLine();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">this</span>.setElemPosition(uiImage, <span class="keyword">this</span>._renderPos.x, <span class="keyword">this</span>._renderPos.y);</span><br><span class="line">			<span class="keyword">this</span>._renderPos.x += uiImage.getContentSize().width;</span><br><span class="line">			<span class="keyword">this</span>._renderPos.maxHeight = (<span class="keyword">this</span>._renderPos.maxHeight &gt; uiImage.getContentSize().height) ? <span class="keyword">this</span>._renderPos.maxHeight : uiImage.getContentSize().height</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>._images.push(uiImage);</span><br><span class="line">			<span class="keyword">this</span>._contents.push(uiImage);</span><br><span class="line">			<span class="keyword">this</span>._currentLine.push(uiImage);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 插入动画</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	progressArmature : <span class="function"><span class="keyword">function</span>(<span class="params">name, action</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ((!!name) &amp;&amp; (!!action)) &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"progress armature %s %s"</span>, name, action);</span><br><span class="line">			<span class="keyword">var</span> armature = <span class="keyword">new</span> ArmatureBase(name, <span class="keyword">this</span>);</span><br><span class="line">			armature.play(action);</span><br><span class="line">			armature.armature.setVisible(<span class="keyword">this</span>._show_fast);</span><br><span class="line">			<span class="keyword">if</span> (armature.armature.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">				armature.armature.setScale(<span class="keyword">this</span>._width / armature.armature.getContentSize().width);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>._renderPos.x + armature.armature.getContentSize().width &gt; <span class="keyword">this</span>._width) &#123;</span><br><span class="line">				<span class="keyword">this</span>.nextLine();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">this</span>.setElemPosition(armature.armature, <span class="keyword">this</span>._renderPos.x, <span class="keyword">this</span>._renderPos.y);</span><br><span class="line">			<span class="keyword">this</span>._renderPos.x += armature.armature.getContentSize().width;</span><br><span class="line">			<span class="keyword">this</span>._renderPos.maxHeight = (<span class="keyword">this</span>._renderPos.maxHeight &gt; armature.armature.getContentSize().height) ? <span class="keyword">this</span>._renderPos.maxHeight : armature.armature.getContentSize().height</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>._armatures.push(armature);</span><br><span class="line">			<span class="keyword">this</span>._contents.push(armature);</span><br><span class="line">			<span class="keyword">this</span>._currentLine.push(armature);</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 调整位置</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	setElemPosition : <span class="function"><span class="keyword">function</span>(<span class="params">elem, _x, _y</span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(<span class="string">"setElemPosition %s, %s"</span>, _x, _y);</span><br><span class="line">		<span class="keyword">if</span> (elem <span class="keyword">instanceof</span> ArmatureBase) &#123;</span><br><span class="line">			elem = elem.armature;</span><br><span class="line">		&#125;</span><br><span class="line">		elem.ignoreAnchorPointForPosition(<span class="literal">false</span>);</span><br><span class="line">		elem.setAnchorPoint(cc.p(<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">		elem.setVisible(<span class="literal">true</span>);</span><br><span class="line">		<span class="keyword">if</span> (_x != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">var</span> x = _x + elem.getContentSize().width * elem.getAnchorPoint().x;</span><br><span class="line">			elem.setPositionX(x);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (_y != <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">var</span> y = _y + elem.getContentSize().height * elem.getAnchorPoint().y;</span><br><span class="line">			elem.setPositionY(- y);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 换行</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	nextLine : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// 调整当前行元素高度，适应maxHeight</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>._currentLine.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">this</span>.setElemPosition(<span class="keyword">this</span>._currentLine[i], <span class="literal">null</span>, <span class="keyword">this</span>._renderPos.y + <span class="keyword">this</span>._renderPos.maxHeight);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>._renderPos.x = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">this</span>._renderPos.y += <span class="keyword">this</span>._renderPos.maxHeight + <span class="keyword">this</span>._lineHeight / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">this</span>._renderPos.maxHeight = <span class="keyword">this</span>._defaultFontSize; <span class="comment">// 恢复lineheight</span></span><br><span class="line">		<span class="keyword">this</span>._currentLine = [];</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	adjustContentsY : <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="keyword">this</span>._contents.length; i += <span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">var</span> elem = <span class="keyword">this</span>._contents[i];</span><br><span class="line">			<span class="keyword">if</span> (elem <span class="keyword">instanceof</span> ArmatureBase) &#123;</span><br><span class="line">				elem = elem.armature;</span><br><span class="line">			&#125;</span><br><span class="line">			elem.setPositionY(elem.getPositionY() + <span class="keyword">this</span>._height + <span class="keyword">this</span>._lineHeight);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line"></span><br><span class="line">	update : <span class="function"><span class="keyword">function</span>(<span class="params">dt</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>._updateDt += dt;</span><br><span class="line">		<span class="keyword">if</span> (<span class="keyword">this</span>._updateDt &gt; <span class="keyword">this</span>.WAIT_FOR_MESSAGE) &#123;</span><br><span class="line">			<span class="keyword">this</span>._updateDt = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>._showSeq &lt; <span class="keyword">this</span>._contents.length) &#123;</span><br><span class="line">				<span class="keyword">if</span> (<span class="keyword">this</span>._contents[<span class="keyword">this</span>._showSeq] <span class="keyword">instanceof</span> ArmatureBase) &#123;</span><br><span class="line">					<span class="keyword">this</span>._contents[<span class="keyword">this</span>._showSeq].armature.setVisible(<span class="literal">true</span>);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					<span class="keyword">this</span>._contents[<span class="keyword">this</span>._showSeq].setVisible(<span class="literal">true</span>);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">this</span>._showSeq += <span class="number">1</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<p>lua版</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">local labelEx = require("ui.ui_label_ex"):create(300) -- width</span></span><br><span class="line"><span class="comment">l:addChild(labelEx, 100)</span></span><br><span class="line"><span class="comment">labelEx:setPosition(100, self.visibleSize.height)</span></span><br><span class="line"><span class="comment">labelEx:setString("普通文字$C&lt;3&gt;颜色$C&lt;1&gt;普通颜色$S&lt;36&gt;大小$S&lt;0&gt;普通大小$I&lt;101&gt;←图片$B&lt;button&gt;按钮$E&lt;99&gt;表情\n换\n行")</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">]]</span><span class="comment">--</span></span><br><span class="line"><span class="keyword">local</span> UILabelEx = class(<span class="string">"UILabelEx"</span>, <span class="built_in">require</span>(<span class="string">"ui.ui_common"</span>))</span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 控制字符</span></span><br><span class="line">UILabelEx.C_CHR = <span class="string">"$"</span></span><br><span class="line"><span class="comment">-- 单字显示时间间隔</span></span><br><span class="line">UILabelEx.WAIT_FOR_MESSAGE = <span class="number">5</span> / <span class="number">60</span></span><br><span class="line"><span class="comment">-- 默认字号</span></span><br><span class="line">UILabelEx.DEFAULT_FONT_SIZE = <span class="number">24</span>   </span><br><span class="line"><span class="comment">-- 行间距</span></span><br><span class="line">UILabelEx.DEFAULT_LINE_HEIGHT = <span class="number">12</span> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:ctor</span><span class="params">(width, show_fast)</span></span></span><br><span class="line">    UILabelEx.super.ctor(self, <span class="string">""</span>)</span><br><span class="line"> </span><br><span class="line">    self._defaultFontSize = UILabelEx.DEFAULT_FONT_SIZE</span><br><span class="line">    self._lineHeight = UILabelEx.DEFAULT_LINE_HEIGHT</span><br><span class="line">    self._width = width</span><br><span class="line">    self._show_fast = <span class="keyword">not</span> <span class="keyword">not</span> show_fast</span><br><span class="line">    self._height = self._defaultFontSize</span><br><span class="line">    self._rootWgt = ccui.Layout:<span class="built_in">create</span>()</span><br><span class="line">    self:addChild(self._rootWgt, <span class="number">100</span>)</span><br><span class="line">    self:clear()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:clear</span><span class="params">()</span></span></span><br><span class="line">    self._contentStr = <span class="string">""</span></span><br><span class="line"> </span><br><span class="line">    self._texts = self._texts <span class="keyword">or</span> &#123;&#125; <span class="comment">-- 文字</span></span><br><span class="line">    self._images = self._images <span class="keyword">or</span> &#123;&#125;   <span class="comment">-- 图片</span></span><br><span class="line">    self._widgets = self._widgets <span class="keyword">or</span> &#123;&#125; <span class="comment">-- 按钮等</span></span><br><span class="line">    self._armatures = self._armatures <span class="keyword">or</span> &#123;&#125; <span class="comment">-- 动画</span></span><br><span class="line">    self._contents = self._contents <span class="keyword">or</span> &#123;&#125;   <span class="comment">-- 包含文字图片等实际顺序的数组</span></span><br><span class="line">    self._currentLine = self._currentLine <span class="keyword">or</span> &#123;&#125; <span class="comment">-- 渲染中的本行元素</span></span><br><span class="line">    self._strIndex = <span class="number">1</span> <span class="comment">-- 遍历的当前字符</span></span><br><span class="line">    self._currentColor = <span class="number">1</span>  <span class="comment">-- 当前文字颜色</span></span><br><span class="line">    self._currentFontSize = self._defaultFontSize   <span class="comment">-- 当前文字大小</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(self._texts) <span class="keyword">do</span></span><br><span class="line">        v:removeFromParent()</span><br><span class="line">        self._texts[k] = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(self._images) <span class="keyword">do</span></span><br><span class="line">        v:removeFromParent()</span><br><span class="line">        self._images[k] = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(self._widgets) <span class="keyword">do</span></span><br><span class="line">        v:removeFromParent()</span><br><span class="line">        self._widgets[k] = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(self._armatures) <span class="keyword">do</span></span><br><span class="line">        v:removeFromParent()</span><br><span class="line">        self._armatures[k] = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    self._texts = &#123;&#125;</span><br><span class="line">    self._images = &#123;&#125;</span><br><span class="line">    self._widgets = &#123;&#125;</span><br><span class="line">    self._armatures = &#123;&#125;</span><br><span class="line">    self._contents = &#123;&#125;</span><br><span class="line">    self._renderPos = &#123;</span><br><span class="line">                        x = <span class="number">0</span>, </span><br><span class="line">                        y = <span class="number">0</span>,</span><br><span class="line">                        maxHeight = self._defaultFontSize   <span class="comment">-- 记录本行最大高度</span></span><br><span class="line">                    &#125;</span><br><span class="line">    self._currentLine = &#123;&#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> self._scheduleShow ~= <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">        cc.Director:getInstance():getScheduler():unscheduleScriptEntry(self._scheduleShow)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    self._scheduleShow = <span class="literal">nil</span></span><br><span class="line">    self._showSeq = <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 判断utf8字符byte长度</span></span><br><span class="line"><span class="comment">-- 0xxxxxxx - 1 byte</span></span><br><span class="line"><span class="comment">-- 110yxxxx - 192, 2 byte</span></span><br><span class="line"><span class="comment">-- 1110yyyy - 225, 3 byte</span></span><br><span class="line"><span class="comment">-- 11110zzz - 240, 4 byte</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">chsize</span><span class="params">(char)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">char</span> <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"not char"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">elseif</span> <span class="built_in">char</span> &gt; <span class="number">240</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">4</span></span><br><span class="line">    <span class="keyword">elseif</span> <span class="built_in">char</span> &gt; <span class="number">225</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span></span><br><span class="line">    <span class="keyword">elseif</span> <span class="built_in">char</span> &gt; <span class="number">192</span> <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 计算utf8字符串字符数, 各种字符都按一个字符计算</span></span><br><span class="line"><span class="comment">-- 例如utf8len("1你好") =&gt; 3</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">utf8len</span><span class="params">(str)</span></span></span><br><span class="line">    <span class="keyword">local</span> <span class="built_in">len</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">local</span> currentIndex = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> currentIndex &lt;= #str <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> <span class="built_in">char</span> = <span class="built_in">string</span>.<span class="built_in">byte</span>(str, currentIndex)</span><br><span class="line">        currentIndex = currentIndex + chsize(<span class="built_in">char</span>)</span><br><span class="line">        <span class="built_in">len</span> = <span class="built_in">len</span> +<span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 截取utf8 字符串</span></span><br><span class="line"><span class="comment">-- str:         要截取的字符串</span></span><br><span class="line"><span class="comment">-- startChar:   开始字符下标,从1开始</span></span><br><span class="line"><span class="comment">-- numChars:    要截取的字符长度</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">utf8sub</span><span class="params">(str, startChar, numChars)</span></span></span><br><span class="line">    <span class="keyword">local</span> startIndex = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> startChar &gt; <span class="number">1</span> <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> <span class="built_in">char</span> = <span class="built_in">string</span>.<span class="built_in">byte</span>(str, startIndex)</span><br><span class="line">        startIndex = startIndex + chsize(<span class="built_in">char</span>)</span><br><span class="line">        startChar = startChar - <span class="number">1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">local</span> currentIndex = startIndex</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">while</span> numChars &gt; <span class="number">0</span> <span class="keyword">and</span> currentIndex &lt;= #str <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">local</span> <span class="built_in">char</span> = <span class="built_in">string</span>.<span class="built_in">byte</span>(str, currentIndex)</span><br><span class="line">        currentIndex = currentIndex + chsize(<span class="built_in">char</span>)</span><br><span class="line">        numChars = numChars <span class="number">-1</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">return</span> str:<span class="built_in">sub</span>(startIndex, currentIndex - <span class="number">1</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:onEnter</span><span class="params">()</span></span></span><br><span class="line">    self:ignoreAnchorPointForPosition(<span class="literal">false</span>)</span><br><span class="line">    self:setAnchorPoint(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:onExit</span><span class="params">()</span></span></span><br><span class="line">    self:clear()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 根据代码取文字颜色</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:getColor</span><span class="params">(code)</span></span></span><br><span class="line">    code = code <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">local</span> colors = &#123;</span><br><span class="line">                    cc.c3b(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),  <span class="comment">-- 白色</span></span><br><span class="line">                    cc.c3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>),            <span class="comment">-- 黑色</span></span><br><span class="line">                    cc.c3b(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>),          <span class="comment">-- 红色</span></span><br><span class="line">                    cc.c3b(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>),          <span class="comment">-- 绿色</span></span><br><span class="line">                    cc.c3b(<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),          <span class="comment">-- 蓝色</span></span><br><span class="line">                    cc.c3b(<span class="number">0</span>, <span class="number">255</span>, <span class="number">255</span>)         <span class="comment">-- 黄色</span></span><br><span class="line">                    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> colors[code] <span class="keyword">or</span> colors[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:setDefaultFontSize</span><span class="params">(size)</span></span></span><br><span class="line">    size = size <span class="keyword">or</span> self._defaultFontSize</span><br><span class="line">    <span class="keyword">if</span> size &lt;= <span class="number">0</span> <span class="keyword">then</span> size = self._defaultFontSize <span class="keyword">end</span></span><br><span class="line">    self._defaultFontSize = size</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:setString</span><span class="params">(str)</span></span></span><br><span class="line">    self:clear()</span><br><span class="line">    self._contentStr = str</span><br><span class="line">    self:refresh()</span><br><span class="line">    self._scheduleShow = cc.Director:getInstance()</span><br><span class="line">                                :getScheduler()</span><br><span class="line">                                :scheduleScriptFunc(handler(self, self.scheduleShow), </span><br><span class="line">                                                        UILabelEx.WAIT_FOR_MESSAGE, </span><br><span class="line">                                                        <span class="literal">false</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">--[[</span></span><br><span class="line"><span class="comment">"普通文字\eC[color]颜色\eC[1]普通\n颜色\eS[size]大小\eS[24]普通大小\eI[img]←图片\eB[button]按钮\eE[emj]表情"</span></span><br><span class="line"><span class="comment">]]</span><span class="comment">--</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:refresh</span><span class="params">()</span></span></span><br><span class="line">    <span class="built_in">print</span>(utf8len(self._contentStr))    </span><br><span class="line">    <span class="keyword">while</span> self._strIndex &lt;= utf8len(self._contentStr) <span class="keyword">do</span></span><br><span class="line">        self:progressContentString()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> self._show_fast <span class="keyword">then</span> self._seq = #self._contents <span class="keyword">end</span></span><br><span class="line">    self:nextLine()</span><br><span class="line">    self._height = self._renderPos.y</span><br><span class="line">    self._rootWgt:ignoreAnchorPointForPosition(<span class="literal">false</span>)</span><br><span class="line">    self._rootWgt:setAnchorPoint(cc.p(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">    self._rootWgt:setBackGroundColorType(ccui.LayoutBackGroundColorType.solid)</span><br><span class="line">    self._rootWgt:setBackGroundColor(cc.c3b(<span class="number">128</span>, <span class="number">128</span>, <span class="number">128</span>))</span><br><span class="line">    self._rootWgt:setContentSize(self._width, self._height)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 处理特殊字符</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressContentString</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> str = utf8sub(self._contentStr, self._strIndex, <span class="number">1</span>)</span><br><span class="line">    self._strIndex = self._strIndex + <span class="number">1</span></span><br><span class="line">    <span class="comment">-- print("str:"..str)</span></span><br><span class="line">     </span><br><span class="line">    <span class="keyword">if</span> str == <span class="string">"\r"</span> <span class="keyword">then</span>             <span class="comment">-- 回车</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">elseif</span> str == <span class="string">"\n"</span> <span class="keyword">then</span>         <span class="comment">-- 换行</span></span><br><span class="line">        self:progressNewLine()</span><br><span class="line">    <span class="keyword">elseif</span> str == UILabelEx.C_CHR <span class="keyword">then</span>      <span class="comment">-- 控制符</span></span><br><span class="line">        <span class="comment">-- 处理中会影响self._strIndex</span></span><br><span class="line">        self:progressControlChar()</span><br><span class="line">    <span class="keyword">else</span>                            <span class="comment">-- 普通文字</span></span><br><span class="line">        self:progressNormalText(str)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">     </span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 换行</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressNewLine</span><span class="params">()</span></span></span><br><span class="line">    self:nextLine()</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 控制符</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressControlChar</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> chr = utf8sub(self._contentStr, self._strIndex, <span class="number">1</span>)</span><br><span class="line">    self._strIndex = self._strIndex + <span class="number">1</span></span><br><span class="line">    chr = <span class="built_in">string</span>.<span class="built_in">upper</span>(chr)</span><br><span class="line">    <span class="comment">-- print("char:"..chr)</span></span><br><span class="line">    <span class="keyword">local</span> progressFlag = <span class="literal">false</span>  <span class="comment">-- 是否正常解析</span></span><br><span class="line">    <span class="keyword">local</span> s, e, val = <span class="built_in">string</span>.<span class="built_in">find</span>(self._contentStr, <span class="string">"&lt;(.-)&gt;"</span>, <span class="built_in">string</span>.<span class="built_in">len</span>(utf8sub(self._contentStr, <span class="number">1</span>, self._strIndex)))</span><br><span class="line">    <span class="keyword">if</span> val <span class="keyword">and</span> s == <span class="built_in">string</span>.<span class="built_in">len</span>(utf8sub(self._contentStr, <span class="number">1</span>, self._strIndex)) <span class="keyword">then</span></span><br><span class="line">        progressFlag = <span class="literal">true</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"val:"</span>..(val ~= <span class="literal">nil</span> <span class="keyword">and</span> val <span class="keyword">or</span> <span class="string">"nil"</span>))</span><br><span class="line">        <span class="keyword">if</span> chr == <span class="string">"C"</span> <span class="keyword">then</span></span><br><span class="line">            progressFlag = self:changeFontColor(<span class="built_in">tonumber</span>(val))  <span class="comment">-- 修改颜色</span></span><br><span class="line">        <span class="keyword">elseif</span> chr == <span class="string">"S"</span> <span class="keyword">then</span></span><br><span class="line">            progressFlag = self:changeFontSize(<span class="built_in">tonumber</span>(val))   <span class="comment">-- 修改字号</span></span><br><span class="line">        <span class="keyword">elseif</span> chr == <span class="string">"I"</span> <span class="keyword">then</span></span><br><span class="line">            progressFlag = self:progressImage(<span class="built_in">tonumber</span>(val))    <span class="comment">-- 插入图片</span></span><br><span class="line">        <span class="keyword">elseif</span> chr == <span class="string">"B"</span> <span class="keyword">then</span></span><br><span class="line">            progressFlag = self:progressBtn(val)        <span class="comment">-- 插入按钮</span></span><br><span class="line">        <span class="keyword">elseif</span> chr == <span class="string">"E"</span> <span class="keyword">then</span></span><br><span class="line">            progressFlag = self:progressEmoji(<span class="built_in">tonumber</span>(val))    <span class="comment">-- 插入表情</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> progressFlag <span class="keyword">then</span></span><br><span class="line">        self._strIndex = self._strIndex + utf8len(val) + <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span> <span class="comment">-- 处理失败，当做通常字符处理       </span></span><br><span class="line">        self._strIndex = self._strIndex - <span class="number">2</span></span><br><span class="line">        <span class="keyword">local</span> str = utf8sub(self._contentStr, self._strIndex, <span class="number">1</span>)</span><br><span class="line">        self._strIndex = self._strIndex + <span class="number">1</span>    </span><br><span class="line">        self:progressNormalText(str)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">-- 普通文字</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressNormalText</span><span class="params">(chr)</span></span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"progress normal:"</span>..chr)</span><br><span class="line">    <span class="keyword">local</span> uiText = ccui.Text:<span class="built_in">create</span>()   </span><br><span class="line">    uiText:setString(chr)</span><br><span class="line">    uiText:setVisible(self._show_fast)</span><br><span class="line">    uiText:setFontSize(self._currentFontSize)</span><br><span class="line">    uiText:setColor(self:getColor(self._currentColor))</span><br><span class="line">    self:addChild(uiText, <span class="number">100</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> uiText:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"too big width, scaled"</span>)</span><br><span class="line">        uiText:setScale(self._width / uiText:getContentSize().width)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> self._renderPos.x + uiText:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        self:nextLine()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    self:setElemPosition(uiText, self._renderPos.x, self._renderPos.y)</span><br><span class="line">    self._renderPos.x = self._renderPos.x + uiText:getContentSize().width</span><br><span class="line">    self._renderPos.maxHeight = (self._renderPos.maxHeight &gt; uiText:getContentSize().height) <span class="keyword">and</span> self._renderPos.maxHeight <span class="keyword">or</span> uiText:getContentSize().height</span><br><span class="line"> </span><br><span class="line">    self._texts[#self._texts + <span class="number">1</span>] = uiText</span><br><span class="line"> </span><br><span class="line">    self._contents[#self._contents + <span class="number">1</span>] = uiText</span><br><span class="line">    self._currentLine[#self._currentLine + <span class="number">1</span>] = uiText</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:changeFontColor</span><span class="params">(code)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> code <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    self._currentColor = code</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:changeFontSize</span><span class="params">(code)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> code <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> code &lt;= <span class="number">0</span> <span class="keyword">then</span> code = self._defaultFontSize <span class="keyword">end</span></span><br><span class="line">    self._currentFontSize = code</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressImage</span><span class="params">(code)</span></span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> code <span class="keyword">then</span> <span class="keyword">return</span> <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"progress image:"</span>..code)</span><br><span class="line">    <span class="keyword">local</span> image = t_image[code]</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> image <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    cc.SpriteFrameCache:getInstance():addSpriteFrames(image.plist)</span><br><span class="line">    <span class="keyword">local</span> uiImage = ccui.ImageView:<span class="built_in">create</span>() </span><br><span class="line">    uiImage:loadTexture(image.name, ccui.TextureResType.plistType)</span><br><span class="line">    uiImage:setVisible(self._show_fast)</span><br><span class="line">    self:addChild(uiImage, <span class="number">100</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> uiImage:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"too big width, scaled"</span>)</span><br><span class="line">        uiImage:setScale(self._width / uiImage:getContentSize().width)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> self._renderPos.x + uiImage:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        self:nextLine()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    self:setElemPosition(uiImage, self._renderPos.x, self._renderPos.y)</span><br><span class="line">    self._renderPos.x = self._renderPos.x + uiImage:getContentSize().width</span><br><span class="line">    self._renderPos.maxHeight = (self._renderPos.maxHeight &gt; uiImage:getContentSize().height) <span class="keyword">and</span> self._renderPos.maxHeight <span class="keyword">or</span> uiImage:getContentSize().height</span><br><span class="line"> </span><br><span class="line">    self._images[#self._images + <span class="number">1</span>] = uiImage</span><br><span class="line"> </span><br><span class="line">    self._contents[#self._contents + <span class="number">1</span>] = uiImage</span><br><span class="line">    self._currentLine[#self._currentLine + <span class="number">1</span>] = uiImage</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressBtn</span><span class="params">(str)</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:progressEmoji</span><span class="params">(code)</span></span>  </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> code <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"progress emoji:"</span>..code)</span><br><span class="line">    <span class="keyword">local</span> animation = t_animation[code]</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> animation <span class="keyword">then</span> <span class="keyword">return</span> <span class="literal">false</span> <span class="keyword">end</span></span><br><span class="line">    ccs.ArmatureDataManager:getInstance():addArmatureFileInfo(animation.json)</span><br><span class="line">    <span class="keyword">local</span> armature = ccs.Armature:<span class="built_in">create</span>(animation.name)</span><br><span class="line">    armature:getAnimation():play(<span class="string">"effect"</span>)</span><br><span class="line">    armature:setVisible(self._show_fast)</span><br><span class="line">    self:addChild(armature, <span class="number">100</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> armature:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"too big width, scaled"</span>)</span><br><span class="line">        armature:setScale(self._width / armature:getContentSize().width)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> self._renderPos.x + armature:getContentSize().width &gt; self._width <span class="keyword">then</span></span><br><span class="line">        self:nextLine()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line">    self:setElemPosition(armature, self._renderPos.x, self._renderPos.y)</span><br><span class="line">    self._renderPos.x = self._renderPos.x + armature:getContentSize().width</span><br><span class="line">    self._renderPos.maxHeight = (self._renderPos.maxHeight &gt; armature:getContentSize().height) <span class="keyword">and</span> self._renderPos.maxHeight <span class="keyword">or</span> armature:getContentSize().height</span><br><span class="line"> </span><br><span class="line">    self._armatures[#self._armatures + <span class="number">1</span>] = armature</span><br><span class="line"> </span><br><span class="line">    self._contents[#self._contents + <span class="number">1</span>] = armature</span><br><span class="line">    self._currentLine[#self._currentLine + <span class="number">1</span>] = armature</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:setElemPosition</span><span class="params">(elem, _x, _y)</span></span></span><br><span class="line">    elem:ignoreAnchorPointForPosition(<span class="literal">false</span>)</span><br><span class="line">    elem:setAnchorPoint(cc.p(<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">if</span> _x <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> x = _x + elem:getContentSize().width * elem:getAnchorPoint().x</span><br><span class="line">        elem:setPositionX(x)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">if</span> _y <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">local</span> y = _y + elem:getContentSize().height * elem:getAnchorPoint().y</span><br><span class="line">        elem:setPositionY(-y)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:nextLine</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- 调整当前行元素高度，适应maxHeight</span></span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(self._currentLine) <span class="keyword">do</span></span><br><span class="line">        self:setElemPosition(v, <span class="literal">nil</span>, self._renderPos.y + self._renderPos.maxHeight)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    self._renderPos.x = <span class="number">0</span></span><br><span class="line">    self._renderPos.y = self._renderPos.y + self._renderPos.maxHeight + self._lineHeight / <span class="number">2</span></span><br><span class="line">    self._renderPos.maxHeight = self._defaultFontSize</span><br><span class="line">    self._currentLine = &#123;&#125;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UILabelEx:scheduleShow</span><span class="params">(dt)</span></span></span><br><span class="line">    <span class="keyword">if</span> self._showSeq &lt; #self._contents <span class="keyword">then</span>     </span><br><span class="line">        self._showSeq = self._showSeq + <span class="number">1</span></span><br><span class="line">        self._contents[self._showSeq]:setVisible(<span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">return</span> UILabelEx</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/lua/" rel="tag"># lua</a>
+          
+            <a href="/tags/quick-cocos/" rel="tag"># quick-cocos</a>
+          
+            <a href="/tags/cocos-html/" rel="tag"># cocos-html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/06/childhood-VB/" rel="next" title="VB风格的form">
+                <i class="fa fa-chevron-left"></i> VB风格的form
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/06/docker-practice/" rel="prev" title="docker实、实验报告......">
+                docker实、实验报告...... <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank">
+      <img src="http://www.reliablecounter.com/count.php?page=www.surebrz.com2&digit=style/scoreboards/9/&reloads=1" alt="www.reliablecounter.com" title="www.reliablecounter.com" border="0">
+    </a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

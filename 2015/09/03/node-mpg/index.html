@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nodejs,php," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="web端控制树莓派播放音乐，PHP+NodeJS+mpg123，粗糙版。实现后还可以做个app什么的。">
+<meta name="keywords" content="nodejs,php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用web端来控制我的树莓派播放音乐">
+<meta property="og:url" content="http://www.surebrz.com/2015/09/03/node-mpg/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="web端控制树莓派播放音乐，PHP+NodeJS+mpg123，粗糙版。实现后还可以做个app什么的。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/0060lm7Tgw1f01hk9f33sj30pb0q4jwp.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/0060lm7Tgw1f01hpe4yyyj30pg0dxagf.jpg">
+<meta property="og:updated_time" content="2018-08-12T23:26:00.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用web端来控制我的树莓派播放音乐">
+<meta name="twitter:description" content="web端控制树莓派播放音乐，PHP+NodeJS+mpg123，粗糙版。实现后还可以做个app什么的。">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/large/0060lm7Tgw1f01hk9f33sj30pb0q4jwp.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2015/09/03/node-mpg/"/>
+
+
+
+
+
+  <title>使用web端来控制我的树莓派播放音乐 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2015/09/03/node-mpg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用web端来控制我的树莓派播放音乐</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-09-03T09:25:07+08:00">
+                2015-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/折腾/" itemprop="url" rel="index">
+                    <span itemprop="name">折腾</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/09/03/node-mpg/" class="leancloud_visitors" data-flag-title="使用web端来控制我的树莓派播放音乐">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>web端控制树莓派播放音乐，PHP+NodeJS+mpg123，粗糙版。实现后还可以做个app什么的。</p>
+<a id="more"></a>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p><strong>用到的代码内容可以在<a href="https://github.com/surevision/node_mpg123_pi" target="_blank" rel="noopener">这里</a>看~</strong></p>
+<h3 id="nodempg-js"><a href="#nodempg-js" class="headerlink" title="nodempg.js"></a>nodempg.js</h3><ul>
+<li>启动一个server，负责实际播放</li>
+</ul>
+<h3 id="call-node-php"><a href="#call-node-php" class="headerlink" title="call_node.php"></a>call_node.php</h3><ul>
+<li>curl访问nodempg.js</li>
+</ul>
+<h3 id="xmu-php"><a href="#xmu-php" class="headerlink" title="xmu.php"></a>xmu.php</h3><ul>
+<li>内个啥掉虾米的实际地址并播放（地址解析有bug，不过就这样吧……）</li>
+</ul>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><h3 id="web端"><a href="#web端" class="headerlink" title="web端"></a>web端</h3><p><img src="http://ww4.sinaimg.cn/large/0060lm7Tgw1f01hk9f33sj30pb0q4jwp.jpg" alt="web端"></p>
+<h3 id="node端"><a href="#node端" class="headerlink" title="node端"></a>node端</h3><p><img src="http://ww4.sinaimg.cn/large/0060lm7Tgw1f01hpe4yyyj30pg0dxagf.jpg" alt="node端"></p>
+<h3 id="PI端"><a href="#PI端" class="headerlink" title="PI端"></a>PI端</h3><p>唔，你们听不到。</p>
+<h2 id="一些笔记"><a href="#一些笔记" class="headerlink" title="一些笔记"></a>一些笔记</h2><h3 id="php环境"><a href="#php环境" class="headerlink" title="php环境"></a>php环境</h3><ul>
+<li><p>php环境的安装看<a href="http://www.linuxde.net/2013/08/15041.html" target="_blank" rel="noopener">这里</a></p>
+</li>
+<li><p><a href="http://www.cnblogs.com/misoag/archive/2013/02/05/2892712.html" target="_blank" rel="noopener">安装curl扩展</a></p>
+</li>
+</ul>
+<h3 id="nodejs-pi环境"><a href="#nodejs-pi环境" class="headerlink" title="nodejs-pi环境"></a>nodejs-pi环境</h3><ul>
+<li><p>编译好的nodejs在<a href="https://nodejs.org/dist/v0.10.1/" target="_blank" rel="noopener">这里</a>的<a href="https://nodejs.org/dist/v0.10.1/node-v0.10.1-linux-arm-pi.tar.gz" target="_blank" rel="noopener">这个</a></p>
+</li>
+<li><p>环境变量配置</p>
+<pre><code>echo &quot;PATH=$PATH:/usr/local/node/bin&quot; &gt;&gt; /etc/profile
+echo &quot;export PATH&quot; &gt;&gt; /etc/profile
+source /etc/profile
+node -v
+</code></pre></li>
+</ul>
+<h3 id="screen命令"><a href="#screen命令" class="headerlink" title="screen命令"></a>screen命令</h3><ul>
+<li>screen -S yourname -&gt; 新建一个叫yourname的session</li>
+<li>screen -ls（或者screen -list） -&gt; 列出当前所有的session</li>
+<li>screen -r yourname -&gt; 回到yourname这个session</li>
+<li>screen -d yourname -&gt; 远程detach某个session</li>
+<li><p>screen -d -r yourname -&gt; 结束当前session并回到yourname这个session</p>
+<p> -m   causes screen  to  ignore  the  $STY  environment  variable.  With</p>
+<pre><code>&quot;screen  -m&quot;  creation  of  a  new session is enforced, regardless
+whether screen is called from within  another  screen  session  or
+not.  This  flag has a special meaning in connection with the `-d&apos;
+option:
+</code></pre><p> -d -m   Start screen in “detached” mode. This creates a new session but</p>
+<pre><code>doesn&apos;t  attach  to  it.  This  is  useful  for  system startup
+scripts.
+</code></pre></li>
+</ul>
+<h3 id="mpg123命令"><a href="#mpg123命令" class="headerlink" title="mpg123命令"></a>mpg123命令</h3><ul>
+<li><p>播放列表</p>
+<p>  mpg123 –list list.lst  </p>
+</li>
+<li><p>循环单曲播放 </p>
+<pre><code>mpg123 --loop -1 songname.mp3
+</code></pre><ul>
+<li>-1(&lt;0)的数表示无限循环，也可以指定确定的次数。只能是单首循环。 </li>
+<li>这个–loop 参数如果用来播放List（文件）中的歌曲时</li>
+<li>是不能够达到重头到尾的重复播放的效果的，只是循环第一首。</li>
+</ul>
+</li>
+<li><p>随机循环播放列表</p>
+<p>  mpg123 –list list.lst -Z</p>
+</li>
+</ul>
+<h3 id="php端调用"><a href="#php端调用" class="headerlink" title="php端调用"></a>php端调用</h3><ul>
+<li><p>执行shell(<em>(:3ゝ∠)</em>不能用)</p>
+<pre><code>string exec (string command [, string array [, int return_var]])
+</code></pre></li>
+</ul>
+<h3 id="node端调用"><a href="#node端调用" class="headerlink" title="node端调用"></a>node端调用</h3><ul>
+<li><p>执行shell:</p>
+<pre><code>process.execFile(&apos;D:/testweb/aaa.bat&apos;,null,{cwd:&apos;D:/&apos;},
+      function (error,stdout,stderr) {
+        if (error !== null) {
+          console.log(&apos;exec error: &apos; + error);
+        }
+});
+</code></pre></li>
+</ul>
+<p>参考自：</p>
+<p><a href="http://blog.csdn.net/changfengxiongfei/article/details/5451027" target="_blank" rel="noopener">mpg123 听音乐</a><br><a href="http://my.oschina.net/u/252343/blog/185998" target="_blank" rel="noopener">node.js执行shell命令</a><br><a href="http://www.cnblogs.com/ywl925/p/3604530.html" target="_blank" rel="noopener">Screen会话命令 Linux</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/php/" rel="tag"># php</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/23/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/29/mv-map2img/" rel="prev" title="意义不明">
+                意义不明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git"><span class="nav-number">1.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodempg-js"><span class="nav-number">1.2.</span> <span class="nav-text">nodempg.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-node-php"><span class="nav-number">1.3.</span> <span class="nav-text">call_node.php</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xmu-php"><span class="nav-number">1.4.</span> <span class="nav-text">xmu.php</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#web端"><span class="nav-number">2.1.</span> <span class="nav-text">web端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node端"><span class="nav-number">2.2.</span> <span class="nav-text">node端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PI端"><span class="nav-number">2.3.</span> <span class="nav-text">PI端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些笔记"><span class="nav-number">3.</span> <span class="nav-text">一些笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#php环境"><span class="nav-number">3.1.</span> <span class="nav-text">php环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs-pi环境"><span class="nav-number">3.2.</span> <span class="nav-text">nodejs-pi环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#screen命令"><span class="nav-number">3.3.</span> <span class="nav-text">screen命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mpg123命令"><span class="nav-number">3.4.</span> <span class="nav-text">mpg123命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#php端调用"><span class="nav-number">3.5.</span> <span class="nav-text">php端调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node端调用"><span class="nav-number">3.6.</span> <span class="nav-text">node端调用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank">
+      <img src="http://www.reliablecounter.com/count.php?page=www.surebrz.com2&digit=style/scoreboards/9/&reloads=1" alt="www.reliablecounter.com" title="www.reliablecounter.com" border="0">
+    </a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

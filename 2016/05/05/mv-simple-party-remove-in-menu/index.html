@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,rmmv," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="功能简易在整队列表中增加移除队员功能，连点选中角色呼出离队选项。">
+<meta name="keywords" content="javascript,rmmv">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【RMMV插件】整队时移除队员">
+<meta property="og:url" content="http://www.surebrz.com/2016/05/05/mv-simple-party-remove-in-menu/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="功能简易在整队列表中增加移除队员功能，连点选中角色呼出离队选项。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/a94a86cbjw1f3kpx3j7tbj20n40ietfs.jpg">
+<meta property="og:updated_time" content="2018-08-12T23:26:00.550Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【RMMV插件】整队时移除队员">
+<meta name="twitter:description" content="功能简易在整队列表中增加移除队员功能，连点选中角色呼出离队选项。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/mw690/a94a86cbjw1f3kpx3j7tbj20n40ietfs.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2016/05/05/mv-simple-party-remove-in-menu/"/>
+
+
+
+
+
+  <title>【RMMV插件】整队时移除队员 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2016/05/05/mv-simple-party-remove-in-menu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【RMMV插件】整队时移除队员</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-05T19:01:07+08:00">
+                2016-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/成品/" itemprop="url" rel="index">
+                    <span itemprop="name">成品</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/05/05/mv-simple-party-remove-in-menu/" class="leancloud_visitors" data-flag-title="【RMMV插件】整队时移除队员">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><p>简易在整队列表中增加移除队员功能，连点选中角色呼出离队选项。</p>
+<a id="more"></a>
+<ul>
+<li>在数据库 角色 注释 中添加注释<removable>才可在整队中离队</removable></li>
+<li>在数据库 角色 注释 中添加注释<a href="removable:ID" target="_blank" rel="noopener">removable:ID</a>可以在离队时呼出公共事件（立即回到地图执行）</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/<span class="regexp">/=============================================================================</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ Remove Party Actor in Menu</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ by SureBrz</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/=============================================================================</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span>*<span class="symbol">:</span></span><br><span class="line"> * @plugindesc 菜单中可以使队员离队 v<span class="number">0</span>.<span class="number">0</span>.<span class="number">2</span></span><br><span class="line"> * @author SureBrz</span><br><span class="line"> *</span><br><span class="line"> * @help This plugin does <span class="keyword">not</span> provide plugin commands.</span><br><span class="line"> *</span><br><span class="line"> * 在角色注释中添加 &lt;removable&gt; 使角色可在菜单中手动离队，</span><br><span class="line"> * 注释为 &lt;<span class="symbol">removable:</span>ID&gt; 使离队后触发ID对应的公共事件</span><br><span class="line"> *</span><br><span class="line"> *<span class="regexp">/</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">(function() &#123;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  Game_Actor.prototype.removableInMenu = function() &#123;</span></span><br><span class="line"><span class="regexp">    console.log([this.actor().note.match(/</span>&lt;<span class="symbol">removable:</span>(\d+)?&gt;<span class="regexp">/),</span></span><br><span class="line"><span class="regexp">      this.actor().note.match(/</span>&lt;removable&gt;<span class="regexp">/)]);</span></span><br><span class="line"><span class="regexp">    return this.actor().note.match(/</span>&lt;<span class="symbol">removable:</span>(\d+)?&gt;<span class="regexp">/) ||</span></span><br><span class="line"><span class="regexp">      this.actor().note.match(/</span>&lt;removable&gt;<span class="regexp">/);</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Game_Actor.prototype.removeCommonEventId = function() &#123;</span></span><br><span class="line"><span class="regexp">    if(this.actor().note.match(/</span>&lt;<span class="symbol">removable:</span>(\d+)?&gt;<span class="regexp">/)) &#123;</span></span><br><span class="line"><span class="regexp">      return parseInt(RegExp.$1);</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">    return 0;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  function Window_FormationRemoveChoice() &#123;</span></span><br><span class="line"><span class="regexp">      this.initialize.apply(this, arguments);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveChoice.prototype = Object.create(Window_Command.prototype);</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveChoice.prototype.constructor = Window_FormationRemoveChoice;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveChoice.prototype.initialize = function() &#123;</span></span><br><span class="line"><span class="regexp">      Window_Command.prototype.initialize.call(this, 0, 0);</span></span><br><span class="line"><span class="regexp">      this.openness = 0;</span></span><br><span class="line"><span class="regexp">      this.deactivate();</span></span><br><span class="line"><span class="regexp">      this._background = 0;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveChoice.prototype.makeCommandList = function() &#123;</span></span><br><span class="line"><span class="regexp">    this.addCommand('离队', 'remove', true);</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  function Window_FormationRemoveConfirm() &#123;</span></span><br><span class="line"><span class="regexp">      this.initialize.apply(this, arguments);</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveConfirm.prototype = Object.create(Window_HorzCommand.prototype);</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveConfirm.prototype.constructor = Window_FormationRemoveConfirm;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveConfirm.prototype.initialize = function() &#123;</span></span><br><span class="line"><span class="regexp">      Window_HorzCommand.prototype.initialize.call(this, 0, 0);</span></span><br><span class="line"><span class="regexp">      this.openness = 0;</span></span><br><span class="line"><span class="regexp">      this.deactivate();</span></span><br><span class="line"><span class="regexp">      this._background = 0;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveConfirm.prototype.maxCols = function() &#123;</span></span><br><span class="line"><span class="regexp">    return 2;</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Window_FormationRemoveConfirm.prototype.makeCommandList = function() &#123;</span></span><br><span class="line"><span class="regexp">    this.addCommand('确认', 'remove', true);</span></span><br><span class="line"><span class="regexp">    this.addCommand('取消', 'cancel', true);</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">  var _Scene_Menu_prototype_create = Scene_Menu.prototype.create;</span></span><br><span class="line"><span class="regexp">  Scene_Menu.prototype.create = function() &#123;</span></span><br><span class="line"><span class="regexp">    _Scene_Menu_prototype_create.call(this);</span></span><br><span class="line"><span class="regexp">    this.createFormationCommandWindow();</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Scene_Menu.prototype.createFormationCommandWindow = function() &#123;</span></span><br><span class="line"><span class="regexp">    this._formationCommandWindow = new Window_FormationRemoveChoice();</span></span><br><span class="line"><span class="regexp">    this._formationCommandWindow.setHandler('remove', this.commandRemoveActor.bind(this));</span></span><br><span class="line"><span class="regexp">    this._formationCommandWindow.setHandler('cancel', this.commandRemoveActorCancel.bind(this));</span></span><br><span class="line"><span class="regexp">    this.addWindow(this._formationCommandWindow);</span></span><br><span class="line"><span class="regexp">    this._formationCommandConfirmWindow = new Window_FormationRemoveConfirm();</span></span><br><span class="line"><span class="regexp">    this._formationCommandConfirmWindow.setHandler('remove', this.commandRemoveActorConfirm.bind(this));</span></span><br><span class="line"><span class="regexp">    this._formationCommandConfirmWindow.setHandler('cancel', this.commandRemoveActorCancel.bind(this));</span></span><br><span class="line"><span class="regexp">    this.addWindow(this._formationCommandConfirmWindow);</span></span><br><span class="line"><span class="regexp">    this._formationCommandConfirmWindow.close();</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  Scene_Menu.prototype.commandRemoveActor = function() &#123;</span></span><br><span class="line"><span class="regexp">    this._formationCommandConfirmWindow.x = this._formationCommandWindow.x + </span></span><br><span class="line"><span class="regexp">                                        this._formationCommandWindow.width /</span> <span class="number">2</span> -</span><br><span class="line">                                        this._formationCommandConfirmWindow.width / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (this._formationCommandWindow.y &gt; Graphics.height / <span class="number">2</span>) &#123;</span><br><span class="line">      this._formationCommandConfirmWindow.y = this._formationCommandWindow.y -  </span><br><span class="line">                                          this._formationCommandConfirmWindow.height - <span class="number">32</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      this._formationCommandConfirmWindow.y = this._formationCommandWindow.y + </span><br><span class="line">                                          this._formationCommandWindow.height + <span class="number">32</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    this._formationCommandWindow.deselect();</span><br><span class="line">    this._formationCommandConfirmWindow.open();</span><br><span class="line">    this._formationCommandConfirmWindow.select(<span class="number">0</span>);</span><br><span class="line">    this._formationCommandConfirmWindow.activate();                                                                     </span><br><span class="line">  &#125;;</span><br><span class="line">  Scene_Menu.prototype.commandRemoveActorCancel = function() &#123;</span><br><span class="line">    this._formationCommandWindow.deselect();</span><br><span class="line">    this._formationCommandWindow.close();</span><br><span class="line">    this._statusWindow.activate();</span><br><span class="line">  &#125;;</span><br><span class="line">  Scene_Menu.prototype.commandRemoveActorConfirm = function() &#123;</span><br><span class="line">    var index = this._statusWindow.index();</span><br><span class="line">    var actor = $gameParty.members()[index];</span><br><span class="line">    var commonEventId = actor.removeCommonEventId();</span><br><span class="line">    <span class="keyword">if</span> (commonEventId != <span class="number">0</span>) &#123;</span><br><span class="line">      $gameParty.removeActor(actor.actorId());</span><br><span class="line">      $gameTemp.reserveCommonEvent(commonEventId);</span><br><span class="line">      SceneManager.goto(Scene_Map);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      $gameParty.makeMenuActorPrevious();</span><br><span class="line">      this._statusWindow.selectLast();</span><br><span class="line">      this._formationCommandWindow.close();</span><br><span class="line">      this._formationCommandConfirmWindow.deselect();</span><br><span class="line">      this._formationCommandConfirmWindow.close();</span><br><span class="line">      this.onFormationCancel();</span><br><span class="line">      $gameParty.removeActor(actor.actorId());</span><br><span class="line">      this._statusWindow.refresh();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  Scene_Menu.prototype.commandRemoveActorCancel = function() &#123;</span><br><span class="line">    this._formationCommandConfirmWindow.deselect();</span><br><span class="line">    this._formationCommandConfirmWindow.close();</span><br><span class="line">    this._formationCommandWindow.deselect();</span><br><span class="line">    this._formationCommandWindow.close();</span><br><span class="line">    this._statusWindow.activate();</span><br><span class="line">  &#125;;</span><br><span class="line">  Scene_Menu.prototype.onFormationOk = function() &#123;</span><br><span class="line">      var index = this._statusWindow.index();</span><br><span class="line">      var actor = $gameParty.members()[index];</span><br><span class="line">      var pendingIndex = this._statusWindow.pendingIndex();</span><br><span class="line">      <span class="keyword">if</span> (pendingIndex &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">if</span> (index != pendingIndex) &#123;</span><br><span class="line">            $gameParty.swapOrder(index, pendingIndex);</span><br><span class="line">            this._statusWindow.setPendingIndex(-<span class="number">1</span>);</span><br><span class="line">            this._statusWindow.redrawItem(index);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (actor.removableInMenu()) &#123;</span><br><span class="line">              var rect = this._statusWindow.itemRect(this._statusWindow.index());</span><br><span class="line">              this._formationCommandWindow.x = this._statusWindow.x + rect.x +</span><br><span class="line">                                                 rect.width / <span class="number">2</span> -</span><br><span class="line">                                                  this._formationCommandWindow.width / <span class="number">2</span>;</span><br><span class="line">              this._formationCommandWindow.y = this._statusWindow.y + rect.y +</span><br><span class="line">                                                  rect.height / <span class="number">2</span></span><br><span class="line">                                                  this._formationCommandWindow.height / <span class="number">2</span>;</span><br><span class="line">              /<span class="regexp">/ this._statusWindow.deselect();</span></span><br><span class="line"><span class="regexp">              this._formationCommandWindow.open();</span></span><br><span class="line"><span class="regexp">              this._formationCommandWindow.select(0);</span></span><br><span class="line"><span class="regexp">              this._formationCommandWindow.activate();</span></span><br><span class="line"><span class="regexp">              return;</span></span><br><span class="line"><span class="regexp">            &#125;</span></span><br><span class="line"><span class="regexp">          &#125;</span></span><br><span class="line"><span class="regexp">      &#125; else &#123;</span></span><br><span class="line"><span class="regexp">          this._statusWindow.setPendingIndex(index);</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">      this._statusWindow.activate();</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">&#125;)();</span></span><br></pre></td></tr></table></figure>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://ww1.sinaimg.cn/mw690/a94a86cbjw1f3kpx3j7tbj20n40ietfs.jpg" alt="效果"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/rmmv/" rel="tag"># rmmv</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/07/about-WGSendToWeixin-function-not-permission/" rel="next" title="关于微信分享时报错 “WGSendToWeixin function not permission”">
+                <i class="fa fa-chevron-left"></i> 关于微信分享时报错 “WGSendToWeixin function not permission”
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/13/rmva-use-texturepacker-bitmap/" rel="prev" title="RMVA 使用TexturePacker打包的图集">
+                RMVA 使用TexturePacker打包的图集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#功能"><span class="nav-number">1.</span> <span class="nav-text">功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">1.2.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank">
+      <img src="http://www.reliablecounter.com/count.php?page=www.surebrz.com2&digit=style/scoreboards/9/&reloads=1" alt="www.reliablecounter.com" title="www.reliablecounter.com" border="0">
+    </a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
