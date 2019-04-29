@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="referrer" content="no-referrer">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="折腾,wukong-robot," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
+<meta name="keywords" content="折腾,wukong-robot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wukong-robot智能音箱折腾笔记">
+<meta property="og:url" content="http://www.surebrz.com/2019/04/30/wukong-robot-note/index.html">
+<meta property="og:site_name" content="麦甜甜圈">
+<meta property="og:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-29T23:46:27.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wukong-robot智能音箱折腾笔记">
+<meta name="twitter:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.surebrz.com/2019/04/30/wukong-robot-note/"/>
+
+
+
+
+
+  <title>wukong-robot智能音箱折腾笔记 | 麦甜甜圈</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">麦甜甜圈</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-lab">
+          <a href="/lab" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            实验室
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-fantasy-links">
+          <a href="/fantasy-links" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            一些个有意思的链接
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/30/wukong-robot-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">wukong-robot智能音箱折腾笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-30T07:42:09+08:00">
+                2019-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/30/wukong-robot-note/" class="leancloud_visitors" data-flag-title="wukong-robot智能音箱折腾笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>周末尝试在自己的树莓派上安装了一下 <a href="https://wukong.hahack.com/#/" target="_blank" rel="noopener">wukong-robot智能音箱</a>，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。</p>
+<a id="more"></a>
+<h2 id="笔记和工具"><a href="#笔记和工具" class="headerlink" title="笔记和工具"></a>笔记和工具</h2><h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><blockquote>
+<p>snowboy 官方建议在树莓派上先用 rec t.wav 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练</p>
+</blockquote>
+<ul>
+<li><p>录音命令</p>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">arecord</span> <span class="selector-tag">-D</span> "<span class="selector-tag">plughw</span><span class="selector-pseudo">:1</span>,0" <span class="selector-tag">-d</span> 5 <span class="selector-tag">test</span><span class="selector-class">.wav</span></span><br></pre></td></tr></table></figure>
+<p>  其中 plughw:1,0 指第一个usb麦克风</p>
+</li>
+</ul>
+<h2 id="安装时踩的坑"><a href="#安装时踩的坑" class="headerlink" title="安装时踩的坑"></a>安装时踩的坑</h2><h3 id="libatlas-base-dev"><a href="#libatlas-base-dev" class="headerlink" title="libatlas-base-dev"></a>libatlas-base-dev</h3><p>首先更换了软件源 (可用列表见<a href="http://www.raspbian.org/RaspbianMirrors" target="_blank" rel="noopener">这里</a>)</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi<span class="variable">@raspberrypi</span><span class="symbol">:~</span> <span class="variable">$ </span>sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+<p>将内容改为：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http:<span class="regexp">//mi</span>rrors.neusoft.edu.cn<span class="regexp">/raspbian/</span>raspbian jessie main contrib non-free rpi</span><br><span class="line">deb-src http:<span class="regexp">//mi</span>rrors.neusoft.edu.cn<span class="regexp">/raspbian/</span>raspbian jessie main contrib non-free rpi</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> upgrade</span><br></pre></td></tr></table></figure>
+<p>之后安装 libatlas-base-dev 时出现问题:</p>
+<pre><code>pi@raspberrypi:~ $ sudo apt-get install -y libatlas-base-dev
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
+有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
+因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
+包尚未被创建或是它们已被从新到(Incoming)目录移出。
+下列信息可能会对解决问题有所帮助：
+
+下列软件包有未满足的依赖关系：
+libatlas-base-dev : 依赖: **libatlas-dev** 但是它将不会被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系
+</code></pre><p>根据提示尝试依次手动安装依赖：</p>
+<p>1.<br>    pi@raspberrypi:~ $ sudo apt-get install libatlas-dev<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是<br>    因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件<br>    包尚未被创建或是它们已被从新到(Incoming)目录移出。<br>    下列信息可能会对解决问题有所帮助：</p>
+<pre><code>下列软件包有未满足的依赖关系：
+libatlas-dev : 依赖: **libblas-dev** 但是它将不会被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+</code></pre><p>2.<br>    pi@raspberrypi:~ $ sudo apt-get install libblas-dev<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是<br>    因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件<br>    包尚未被创建或是它们已被从新到(Incoming)目录移出。<br>    下列信息可能会对解决问题有所帮助：</p>
+<pre><code>下列软件包有未满足的依赖关系：
+libblas-dev : 依赖: libblas3 **(= 1.2.20110419-10)** 但是 3.7.0-2 正要被安装
+E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
+</code></pre><p>3.<br>    pi@raspberrypi:~ $ sudo apt-get install libblas3=1.2.20110419-10<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    下列软件包将被【降级】：<br>    libblas3<br>    升级了 0 个软件包，新安装了 0 个软件包，降级了 1 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。<br>    需要下载 120 kB 的归档。<br>    解压缩后会消耗 76.8 kB 的额外空间。<br>    您希望继续执行吗？ [Y/n] y<br>    获取:1 <a href="http://mirrors.neusoft.edu.cn/raspbian/raspbian" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/raspbian/raspbian</a> jessie/main armhf libblas3 armhf 1.2.20110419-10 [120 kB]<br>    已下载 120 kB，耗时 0秒 (256 kB/s)<br>    dpkg: 警告: 即将把 libblas3 从 3.7.0-2 降级到 1.2.20110419-10<br>    (正在读取数据库 … 系统当前共安装有 134025 个文件和目录。)<br>    正准备解包 …/libblas3_1.2.20110419-10_armhf.deb  …<br>    正在将 libblas3 (1.2.20110419-10) 解包到 (3.7.0-2) 上 …<br>    正在设置 libblas3 (1.2.20110419-10) …<br>    update-alternatives: 链接组 libblas.so.3 已更改次要链接，故更新候选项 /usr/lib/libblas/libblas.so.3</p>
+<p>之后重新安装 libatlas-base-dev</p>
+<pre><code>pi@raspberrypi:~ $ sudo apt-get install -y libatlas-base-dev
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
+将会同时安装下列软件：
+libatlas-dev libatlas3-base libblas-dev
+建议安装：
+libblas-doc liblapack-doc liblapack-dev
+下列【新】软件包将被安装：
+libatlas-base-dev libatlas-dev libatlas3-base libblas-dev
+升级了 0 个软件包，新安装了 4 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
+需要下载 4,485 kB 的归档。
+解压缩后会消耗 29.7 MB 的额外空间。
+获取:1 http://mirrors.neusoft.edu.cn/raspbian/raspbian jessie/main armhf libatlas3-base armhf 3.10.2-7+rpi1 [1,841 kB]
+获取:2 http://mirrors.neusoft.edu.cn/raspbian/raspbian jessie/main armhf libblas-dev armhf 1.2.20110419-10 [117 kB]
+获取:3 http://mirrors.neusoft.edu.cn/raspbian/raspbian jessie/main armhf libatlas-dev all 3.10.2-7+rpi1 [65.0 kB]
+获取:4 http://mirrors.neusoft.edu.cn/raspbian/raspbian jessie/main armhf libatlas-base-dev armhf 3.10.2-7+rpi1 [2,462 kB]
+已下载 4,485 kB，耗时 3秒 (1,343 kB/s)
+正在选中未选择的软件包 libatlas3-base。
+(正在读取数据库 ... 系统当前共安装有 134027 个文件和目录。)
+正准备解包 .../libatlas3-base_3.10.2-7+rpi1_armhf.deb  ...
+正在解包 libatlas3-base (3.10.2-7+rpi1) ...
+正在选中未选择的软件包 libblas-dev。
+正准备解包 .../libblas-dev_1.2.20110419-10_armhf.deb  ...
+正在解包 libblas-dev (1.2.20110419-10) ...
+正在选中未选择的软件包 libatlas-dev。
+正准备解包 .../libatlas-dev_3.10.2-7+rpi1_all.deb  ...
+正在解包 libatlas-dev (3.10.2-7+rpi1) ...
+正在选中未选择的软件包 libatlas-base-dev。
+正准备解包 .../libatlas-base-dev_3.10.2-7+rpi1_armhf.deb  ...
+正在解包 libatlas-base-dev (3.10.2-7+rpi1) ...
+正在设置 libatlas3-base (3.10.2-7+rpi1) ...
+update-alternatives: 使用 /usr/lib/atlas-base/atlas/libblas.so.3 来在自动模式中提供 /usr/lib/libblas.so.3 (libblas.so.3)
+update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so.3 来在自动模式中提供 /usr/lib/liblapack.so.3 (liblapack.so.3)
+正在设置 libblas-dev (1.2.20110419-10) ...
+update-alternatives: 使用 /usr/lib/libblas/libblas.so 来在自动模式中提供 /usr/lib/libblas.so (libblas.so)
+正在设置 libatlas-dev (3.10.2-7+rpi1) ...
+正在设置 libatlas-base-dev (3.10.2-7+rpi1) ...
+update-alternatives: 使用 /usr/lib/atlas-base/atlas/libblas.so 来在自动模式中提供 /usr/lib/libblas.so (libblas.so)
+update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动模式中提供 /usr/lib/liblapack.so (liblapack.so)
+</code></pre><p>解决。</p>
+<h2 id="运行时踩的坑"><a href="#运行时踩的坑" class="headerlink" title="运行时踩的坑"></a>运行时踩的坑</h2><ul>
+<li>重复询问</li>
+</ul>
+<p>我使用的版本<strong>1.6.6</strong>有无限循环 “抱歉，刚刚没听清，能再说一遍吗？” 的问题，简单修改代码减少重试次数，期待有官方修复。</p>
+<p>Conversation.py</p>
+<p>将</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pardon</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.say(<span class="string">"抱歉，刚刚没听清，能再说一遍吗？"</span>, onCompleted=<span class="symbol">lambda:</span> <span class="keyword">self</span>.doResponse(<span class="keyword">self</span>.activeListen()))</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pardon</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes <span class="params">||</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.pardonTimes &gt; <span class="number">1</span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.pardonTimes = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">self</span>.say(<span class="string">"抱歉，刚刚没听清，能再说一遍吗？"</span>, onCompleted=<span class="symbol">lambda:</span> <span class="keyword">self</span>.doResponse(<span class="keyword">self</span>.activeListen()))</span><br></pre></td></tr></table></figure>
+<p>修改 doResponse :</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">doResponse</span><span class="params">(<span class="keyword">self</span>, query, UUID=<span class="string">''</span>, onSay=None)</span></span><span class="symbol">:</span></span><br><span class="line">        statistic.report(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">self</span>.interrupt()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="symbol">onSay:</span></span><br><span class="line">            <span class="keyword">self</span>.onSay = onSay</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isnull(query)<span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.pardon()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> query.strip() == <span class="string">''</span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">self</span>.appendHistory(<span class="number">0</span>, query, UUID)</span><br><span class="line"></span><br><span class="line">        lastImmersiveMode = <span class="keyword">self</span>.immersiveMode</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">self</span>.brain.query(query)<span class="symbol">:</span></span><br><span class="line">            <span class="comment"># 没命中技能，使用机器人回复</span></span><br><span class="line">            msg = <span class="keyword">self</span>.ai.chat(query)</span><br><span class="line">            <span class="keyword">self</span>.say(msg, True, onCompleted=<span class="keyword">self</span>.checkRestore)</span><br><span class="line">        <span class="symbol">else:</span></span><br><span class="line">            <span class="keyword">if</span> lastImmersiveMode is <span class="keyword">not</span> None <span class="keyword">and</span> lastImmersiveMode != <span class="keyword">self</span>.<span class="symbol">matchPlugin:</span></span><br><span class="line">                time.sleep(<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">self</span>.player is <span class="keyword">not</span> None <span class="keyword">and</span> <span class="keyword">self</span>.player.is_playing()<span class="symbol">:</span></span><br><span class="line">                    logger.debug(<span class="string">'等说完再checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.player.appendOnCompleted(<span class="symbol">lambda:</span> <span class="keyword">self</span>.checkRestore())</span><br><span class="line">                <span class="symbol">else:</span></span><br><span class="line">                    logger.debug(<span class="string">'checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.checkRestore()</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/折腾/" rel="tag"># 折腾</a>
+          
+            <a href="/tags/wukong-robot/" rel="tag"># wukong-robot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/29/xiaomi-fullscreen-note/" rel="next" title="小米 MIX 一次全屏问题解决笔记">
+                <i class="fa fa-chevron-left"></i> 小米 MIX 一次全屏问题解决笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="uyan_frame"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烁灵SureBrz" />
+          <p class="site-author-name" itemprop="name">烁灵SureBrz</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              邻家的小屋
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://ciella1.wixsite.com/shiinayashiro" title="ShiinaYASHIRO Games" target="_blank">ShiinaYASHIRO Games</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#笔记和工具"><span class="nav-number">1.</span> <span class="nav-text">笔记和工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型训练"><span class="nav-number">1.1.</span> <span class="nav-text">模型训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装时踩的坑"><span class="nav-number">2.</span> <span class="nav-text">安装时踩的坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#libatlas-base-dev"><span class="nav-number">2.1.</span> <span class="nav-text">libatlas-base-dev</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行时踩的坑"><span class="nav-number">3.</span> <span class="nav-text">运行时踩的坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2013 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烁灵SureBrz</span>
+    <span class="with-love">
+    <i class="icon-next-heart"></i>
+  </span>
+  <span class="with-love">
+    <a href="http://www.reliablecounter.com" target="_blank"><img src="https://www.reliablecounter.com/count.php?page=surebrz.com12559361&digit=style/plain/13/&reloads=0" alt="" title="" border="0"></a><br /><a href="http://" target="_blank" style="font-family: Geneva, Arial; font-size: 9px; color: #330010; text-decoration: none;"></a>
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2141245"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("d4jOg4AvSiupTQ1ToOrX6cga-gzGzoHsz", "VxnzOYJMlzf1B7bQu8vRALky");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
