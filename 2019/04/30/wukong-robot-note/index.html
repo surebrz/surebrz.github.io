@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="麦甜甜圈">
 <meta property="og:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-04T00:22:30.335Z">
+<meta property="og:updated_time" content="2019-05-04T01:00:52.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wukong-robot智能音箱折腾笔记">
 <meta name="twitter:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
@@ -397,12 +397,12 @@
 </ul>
 <h2 id="安装时踩的坑"><a href="#安装时踩的坑" class="headerlink" title="安装时踩的坑"></a>安装时踩的坑</h2><h3 id="pyaudio"><a href="#pyaudio" class="headerlink" title="pyaudio"></a>pyaudio</h3><p>一开始使用了自带的 pyaudio，后来折腾其他东西时可能把其他依赖库降级了，录音出问题无法唤醒，重装时报错。</p>
 <p>解决：</p>
-<pre><code>*如果你使用了virtualenv，一般会发现pyaudio安装失败。这种情况下你需要安装APT中的PortAudio开发头文件，然后安装PyAudio：
+<pre><code>* 如果你使用了virtualenv，一般会发现pyaudio安装失败。这种情况下你需要安装APT中的PortAudio开发头文件，然后安装PyAudio *：
 
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get <span class="keyword">install</span> portaudio19-dev</span><br><span class="line">pip <span class="keyword">install</span> pyaudio</span><br></pre></td></tr></table></figure>
 </code></pre><p>解决方案来自<a href="https://segmentfault.com/a/1190000013854294" target="_blank" rel="noopener">这里</a></p>
 <h3 id="libatlas-base-dev"><a href="#libatlas-base-dev" class="headerlink" title="libatlas-base-dev"></a>libatlas-base-dev</h3><p>首先更换了软件源 (可用列表见<a href="http://www.raspbian.org/RaspbianMirrors" target="_blank" rel="noopener">这里</a>)</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi@raspberrypi<span class="symbol">:~</span> $ sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pi<span class="variable">@raspberrypi</span><span class="symbol">:~</span> <span class="variable">$ </span>sudo nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 <p>将内容改为：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http:<span class="regexp">//mi</span>rrors.neusoft.edu.cn<span class="regexp">/raspbian/</span>raspbian jessie main contrib non-free rpi</span><br><span class="line">deb-src http:<span class="regexp">//mi</span>rrors.neusoft.edu.cn<span class="regexp">/raspbian/</span>raspbian jessie main contrib non-free rpi</span><br></pre></td></tr></table></figure>
 <p>执行</p>
