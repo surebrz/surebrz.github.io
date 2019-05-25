@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="折腾,wukong-robot," />
+  <meta name="keywords" content="笔记,折腾,wukong-robot," />
 
 
 
@@ -96,17 +96,19 @@
 
 
 <meta name="description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
-<meta name="keywords" content="折腾,wukong-robot">
+<meta name="keywords" content="笔记,折腾,wukong-robot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wukong-robot智能音箱折腾笔记">
 <meta property="og:url" content="http://www.surebrz.com/2019/04/30/wukong-robot-note/index.html">
 <meta property="og:site_name" content="麦甜甜圈">
 <meta property="og:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-04T01:05:08.307Z">
+<meta property="og:image" content="https://github.com/surevision/wukong-robot/raw/master/docs/_static/IMG_20190504_155309.jpg">
+<meta property="og:updated_time" content="2019-05-06T00:31:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wukong-robot智能音箱折腾笔记">
 <meta name="twitter:description" content="周末尝试在自己的树莓派上安装了一下 wukong-robot智能音箱，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。">
+<meta name="twitter:image" content="https://github.com/surevision/wukong-robot/raw/master/docs/_static/IMG_20190504_155309.jpg">
 
 
 
@@ -336,8 +338,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
                   </a>
                 </span>
 
@@ -385,6 +387,7 @@
 
       
         <p>周末尝试在自己的树莓派上安装了一下 <a href="https://wukong.hahack.com/#/" target="_blank" rel="noopener">wukong-robot智能音箱</a>，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。</p>
+<p><img src="https://github.com/surevision/wukong-robot/raw/master/docs/_static/IMG_20190504_155309.jpg" alt="pic"></p>
 <a id="more"></a>
 <h2 id="笔记和工具"><a href="#笔记和工具" class="headerlink" title="笔记和工具"></a>笔记和工具</h2><h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><blockquote>
 <p>snowboy 官方建议在树莓派上先用 rec t.wav 这样的命令录制唤醒词，然后在训练的时候通过上传按钮上传到服务器中进行训练</p>
@@ -420,16 +423,52 @@
 libatlas-base-dev : 依赖: **libatlas-dev** 但是它将不会被安装
 E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系
 </code></pre><p>根据提示尝试依次手动安装依赖：</p>
-<p>1.<br>    pi@raspberrypi:~ $ sudo apt-get install libatlas-dev<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是<br>    因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件<br>    包尚未被创建或是它们已被从新到(Incoming)目录移出。<br>    下列信息可能会对解决问题有所帮助：</p>
-<pre><code>下列软件包有未满足的依赖关系：
+<p>1.</p>
+<pre><code>pi@raspberrypi:~ $ sudo apt-get install libatlas-dev
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
+有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
+因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
+包尚未被创建或是它们已被从新到(Incoming)目录移出。
+下列信息可能会对解决问题有所帮助：
+
+下列软件包有未满足的依赖关系：
 libatlas-dev : 依赖: **libblas-dev** 但是它将不会被安装
 E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
-</code></pre><p>2.<br>    pi@raspberrypi:~ $ sudo apt-get install libblas-dev<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是<br>    因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件<br>    包尚未被创建或是它们已被从新到(Incoming)目录移出。<br>    下列信息可能会对解决问题有所帮助：</p>
-<pre><code>下列软件包有未满足的依赖关系：
+</code></pre><p>2.</p>
+<pre><code>pi@raspberrypi:~ $ sudo apt-get install libblas-dev
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
+有一些软件包无法被安装。如果您用的是 unstable 发行版，这也许是
+因为系统无法达到您要求的状态造成的。该版本中可能会有一些您需要的软件
+包尚未被创建或是它们已被从新到(Incoming)目录移出。
+下列信息可能会对解决问题有所帮助：
+
+下列软件包有未满足的依赖关系：
 libblas-dev : 依赖: libblas3 **(= 1.2.20110419-10)** 但是 3.7.0-2 正要被安装
 E: 无法修正错误，因为您要求某些软件包保持现状，就是它们破坏了软件包间的依赖关系。
-</code></pre><p>3.<br>    pi@raspberrypi:~ $ sudo apt-get install libblas3=1.2.20110419-10<br>    正在读取软件包列表… 完成<br>    正在分析软件包的依赖关系树<br>    正在读取状态信息… 完成<br>    下列软件包将被【降级】：<br>    libblas3<br>    升级了 0 个软件包，新安装了 0 个软件包，降级了 1 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。<br>    需要下载 120 kB 的归档。<br>    解压缩后会消耗 76.8 kB 的额外空间。<br>    您希望继续执行吗？ [Y/n] y<br>    获取:1 <a href="http://mirrors.neusoft.edu.cn/raspbian/raspbian" target="_blank" rel="noopener">http://mirrors.neusoft.edu.cn/raspbian/raspbian</a> jessie/main armhf libblas3 armhf 1.2.20110419-10 [120 kB]<br>    已下载 120 kB，耗时 0秒 (256 kB/s)<br>    dpkg: 警告: 即将把 libblas3 从 3.7.0-2 降级到 1.2.20110419-10<br>    (正在读取数据库 … 系统当前共安装有 134025 个文件和目录。)<br>    正准备解包 …/libblas3_1.2.20110419-10_armhf.deb  …<br>    正在将 libblas3 (1.2.20110419-10) 解包到 (3.7.0-2) 上 …<br>    正在设置 libblas3 (1.2.20110419-10) …<br>    update-alternatives: 链接组 libblas.so.3 已更改次要链接，故更新候选项 /usr/lib/libblas/libblas.so.3</p>
-<p>之后重新安装 libatlas-base-dev</p>
+</code></pre><p>3.</p>
+<pre><code>pi@raspberrypi:~ $ sudo apt-get install libblas3=1.2.20110419-10
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树
+正在读取状态信息... 完成
+下列软件包将被【降级】：
+libblas3
+升级了 0 个软件包，新安装了 0 个软件包，降级了 1 个软件包，要卸载 0 个软件包，有 0 个软件包未被升级。
+需要下载 120 kB 的归档。
+解压缩后会消耗 76.8 kB 的额外空间。
+您希望继续执行吗？ [Y/n] y
+获取:1 http://mirrors.neusoft.edu.cn/raspbian/raspbian jessie/main armhf libblas3 armhf 1.2.20110419-10 [120 kB]
+已下载 120 kB，耗时 0秒 (256 kB/s)
+dpkg: 警告: 即将把 libblas3 从 3.7.0-2 降级到 1.2.20110419-10
+(正在读取数据库 ... 系统当前共安装有 134025 个文件和目录。)
+正准备解包 .../libblas3_1.2.20110419-10_armhf.deb  ...
+正在将 libblas3 (1.2.20110419-10) 解包到 (3.7.0-2) 上 ...
+正在设置 libblas3 (1.2.20110419-10) ...
+update-alternatives: 链接组 libblas.so.3 已更改次要链接，故更新候选项 /usr/lib/libblas/libblas.so.3
+</code></pre><p>之后重新安装 libatlas-base-dev</p>
 <pre><code>pi@raspberrypi:~ $ sudo apt-get install -y libatlas-base-dev
 正在读取软件包列表... 完成
 正在分析软件包的依赖关系树
@@ -479,9 +518,10 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
 <p>将</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pardon</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.say(<span class="string">"抱歉，刚刚没听清，能再说一遍吗？"</span>, onCompleted=<span class="symbol">lambda:</span> <span class="keyword">self</span>.doResponse(<span class="keyword">self</span>.activeListen()))</span><br></pre></td></tr></table></figure>
 <p>改为</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pardon</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes <span class="params">||</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.pardonTimes &gt; <span class="number">1</span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.pardonTimes = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">self</span>.say(<span class="string">"抱歉，刚刚没听清，能再说一遍吗？"</span>, onCompleted=<span class="symbol">lambda:</span> <span class="keyword">self</span>.doResponse(<span class="keyword">self</span>.activeListen()))</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pardon</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes = <span class="keyword">self</span>.pardonTimes <span class="keyword">or</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.pardonTimes += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.pardonTimes &gt; <span class="number">1</span><span class="symbol">:</span></span><br><span class="line">        <span class="keyword">self</span>.pardonTimes = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">self</span>.say(<span class="string">"抱歉，刚刚没听清，能再说一遍吗？"</span>, onCompleted=<span class="symbol">lambda:</span> <span class="keyword">self</span>.doResponse(<span class="keyword">self</span>.activeListen()))</span><br></pre></td></tr></table></figure>
+<p>将ARS解析错误的返回值改为 None，识别结果为空数组时返回 ‘’</p>
 <p>修改 doResponse :</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">doResponse</span><span class="params">(<span class="keyword">self</span>, query, UUID=<span class="string">''</span>, onSay=None)</span></span><span class="symbol">:</span></span><br><span class="line">        statistic.report(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">self</span>.interrupt()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="symbol">onSay:</span></span><br><span class="line">            <span class="keyword">self</span>.onSay = onSay</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isnull(query)<span class="symbol">:</span></span><br><span class="line">            <span class="keyword">self</span>.pardon()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> query.strip() == <span class="string">''</span><span class="symbol">:</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">self</span>.appendHistory(<span class="number">0</span>, query, UUID)</span><br><span class="line"></span><br><span class="line">        lastImmersiveMode = <span class="keyword">self</span>.immersiveMode</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">self</span>.brain.query(query)<span class="symbol">:</span></span><br><span class="line">            <span class="comment"># 没命中技能，使用机器人回复</span></span><br><span class="line">            msg = <span class="keyword">self</span>.ai.chat(query)</span><br><span class="line">            <span class="keyword">self</span>.say(msg, True, onCompleted=<span class="keyword">self</span>.checkRestore)</span><br><span class="line">        <span class="symbol">else:</span></span><br><span class="line">            <span class="keyword">if</span> lastImmersiveMode is <span class="keyword">not</span> None <span class="keyword">and</span> lastImmersiveMode != <span class="keyword">self</span>.<span class="symbol">matchPlugin:</span></span><br><span class="line">                time.sleep(<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">self</span>.player is <span class="keyword">not</span> None <span class="keyword">and</span> <span class="keyword">self</span>.player.is_playing()<span class="symbol">:</span></span><br><span class="line">                    logger.debug(<span class="string">'等说完再checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.player.appendOnCompleted(<span class="symbol">lambda:</span> <span class="keyword">self</span>.checkRestore())</span><br><span class="line">                <span class="symbol">else:</span></span><br><span class="line">                    logger.debug(<span class="string">'checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.checkRestore()</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">doResponse</span><span class="params">(<span class="keyword">self</span>, query, UUID=<span class="string">''</span>, onSay=None)</span></span><span class="symbol">:</span></span><br><span class="line">        statistic.report(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">self</span>.interrupt()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="symbol">onSay:</span></span><br><span class="line">            <span class="keyword">self</span>.onSay = onSay</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> query == <span class="symbol">None:</span>   <span class="comment"># 错误时重试</span></span><br><span class="line">            <span class="keyword">self</span>.pardon()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> query.strip() == <span class="string">''</span>: <span class="comment"># 识别到空内容时不重试</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">self</span>.appendHistory(<span class="number">0</span>, query, UUID)</span><br><span class="line"></span><br><span class="line">        lastImmersiveMode = <span class="keyword">self</span>.immersiveMode</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">self</span>.brain.query(query)<span class="symbol">:</span></span><br><span class="line">            <span class="comment"># 没命中技能，使用机器人回复</span></span><br><span class="line">            msg = <span class="keyword">self</span>.ai.chat(query)</span><br><span class="line">            <span class="keyword">self</span>.say(msg, True, onCompleted=<span class="keyword">self</span>.checkRestore)</span><br><span class="line">        <span class="symbol">else:</span></span><br><span class="line">            <span class="keyword">if</span> lastImmersiveMode is <span class="keyword">not</span> None <span class="keyword">and</span> lastImmersiveMode != <span class="keyword">self</span>.<span class="symbol">matchPlugin:</span></span><br><span class="line">                time.sleep(<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">self</span>.player is <span class="keyword">not</span> None <span class="keyword">and</span> <span class="keyword">self</span>.player.is_playing()<span class="symbol">:</span></span><br><span class="line">                    logger.debug(<span class="string">'等说完再checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.player.appendOnCompleted(<span class="symbol">lambda:</span> <span class="keyword">self</span>.checkRestore())</span><br><span class="line">                <span class="symbol">else:</span></span><br><span class="line">                    logger.debug(<span class="string">'checkRestore'</span>)</span><br><span class="line">                    <span class="keyword">self</span>.checkRestore()</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -497,6 +537,8 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
             <a href="/tags/折腾/" rel="tag"># 折腾</a>
           
@@ -522,6 +564,10 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/25/monodev-unityengine-does-not-exist/" rel="prev" title="MonoDevelop 找不到 UnityEngine 上下文的解决方法">
+                MonoDevelop 找不到 UnityEngine 上下文的解决方法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -600,7 +646,7 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -622,7 +668,7 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -649,7 +695,7 @@ update-alternatives: 使用 /usr/lib/atlas-base/atlas/liblapack.so 来在自动�
             <ul class="links-of-blogroll-list">
               
                 <li class="links-of-blogroll-item">
-                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                  <a href="http://blog.yoyoyo.me" title="橡皮擦擦" target="_blank">橡皮擦擦</a>
                 </li>
               
                 <li class="links-of-blogroll-item">

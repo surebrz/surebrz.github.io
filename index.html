@@ -281,6 +281,172 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/05/25/monodev-unityengine-does-not-exist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/25/monodev-unityengine-does-not-exist/" itemprop="url">MonoDevelop 找不到 UnityEngine 上下文的解决方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T09:58:46+08:00">
+                2019-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/25/monodev-unityengine-does-not-exist/" class="leancloud_visitors" data-flag-title="MonoDevelop 找不到 UnityEngine 上下文的解决方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>使用 MonoDevelop 编辑代码时出现了错误：</p>
+<blockquote>
+<blockquote>
+<p>Error CS01013: The name ‘UnityEngine’ does not exist in the current context.</p>
+</blockquote>
+</blockquote>
+<p><img src="http://wx4.sinaimg.cn/mw690/a94a86cbly1g3dc8yirz8j20di02i3ye.jpg" alt="pic"></p>
+<p>找不到 UnityEngine 类库，所有相关方法都标红显示错误，但是 Unity 编辑器可以正常编译运行。</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>自行编辑过项目的代码格式： <strong>Project &gt; Assembly-CSharp options, and changing the Source Code &gt; Code Formatting rules.</strong>，导致 <strong>Assembly-CSharp.csproj</strong> 文件被插入了配置代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ProjectExtensions</span> <span class="attr">xmlns</span>=<span class="string">"http://schemas.microsoft.com/developer/msbuild/2003"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">MonoDevelop</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Properties</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Policies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">TextStylePolicy</span> <span class="attr">inheritsSet</span>=<span class="string">"null"</span> <span class="attr">scope</span>=<span class="string">"text/x-csharp"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">CSharpFormattingPolicy</span> <span class="attr">NamespaceBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">ClassBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">InterfaceBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">StructBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">EnumBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">MethodBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">ConstructorBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">DestructorBraceStyle</span>=<span class="string">"EndOfLine"</span> <span class="attr">BeforeMethodDeclarationParentheses</span>=<span class="string">"False"</span> <span class="attr">BeforeMethodCallParentheses</span>=<span class="string">"False"</span> <span class="attr">BeforeConstructorDeclarationParentheses</span>=<span class="string">"False"</span> <span class="attr">BeforeIndexerDeclarationBracket</span>=<span class="string">"False"</span> <span class="attr">BeforeDelegateDeclarationParentheses</span>=<span class="string">"False"</span> <span class="attr">AfterDelegateDeclarationParameterComma</span>=<span class="string">"True"</span> <span class="attr">NewParentheses</span>=<span class="string">"False"</span> <span class="attr">SpacesBeforeBrackets</span>=<span class="string">"False"</span> <span class="attr">inheritsSet</span>=<span class="string">"Mono"</span> <span class="attr">inheritsScope</span>=<span class="string">"text/x-csharp"</span> <span class="attr">scope</span>=<span class="string">"text/x-csharp"</span>/&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Policies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Properties</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">MonoDevelop</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ProjectExtensions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>删除 <strong>Assembly-CSharp.csproj</strong> 文件，重新在 Unity 编辑器中打开代码文件，生成新的项目文件。</p>
+<ul>
+<li><strong>注意，修改配置需要操作的是项目根节点的配置</strong>，而不是 <strong>Assembly-CSharp</strong> 或 <strong>Assembly-CSharp-Editor</strong> 项目的配置。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/30/wukong-robot-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -335,8 +501,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
                   </a>
                 </span>
 
@@ -385,6 +551,7 @@
       
         
           <p>周末尝试在自己的树莓派上安装了一下 <a href="https://wukong.hahack.com/#/" target="_blank" rel="noopener">wukong-robot智能音箱</a>，使用起来非常简单的智能音箱项目，记录一下安装和使用时用到的工具和踩的坑，留作之后扩展编码使用。</p>
+<p><img src="https://github.com/surevision/wukong-robot/raw/master/docs/_static/IMG_20190504_155309.jpg" alt="pic"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/04/30/wukong-robot-note/#more" rel="contents">
@@ -752,6 +919,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-err-stack-collect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/11/rm-err-stack-collect/" itemprop="url">【转载】RPG Maker通用脚本收集-打印异常堆栈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T13:47:36+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RPG-Maker/" itemprop="url" rel="index">
+                    <span itemprop="name">RPG Maker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/11/rm-err-stack-collect/" class="leancloud_visitors" data-flag-title="【转载】RPG Maker通用脚本收集-打印异常堆栈">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原地址：<a href="https://rpg.blue/thread-409158-1-1.html" target="_blank" rel="noopener">https://rpg.blue/thread-409158-1-1.html</a><br>原作者: SailCat</p>
+<p>用于显示异常堆栈详情。</p>
+<p><strong>脚本内容根据评论有修改。</strong></p>
+<p>VA版脚本:<br>用法：替换main脚本</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span></span><br><span class="line">  rgss_main &#123; SceneManager.run &#125; </span><br><span class="line"><span class="keyword">rescue</span> StandardError</span><br><span class="line">  <span class="comment"># 加载脚本数据结构</span></span><br><span class="line">  scripts = $RGSS_SCRIPTS</span><br><span class="line">  <span class="comment"># 显示出错详细信息</span></span><br><span class="line">  t = $!.backtrace.collect <span class="keyword">do</span> <span class="params">|s|</span> </span><br><span class="line">    s.sub(<span class="regexp">/^&#123;([0-9]+)&#125;/</span>) &#123;<span class="string">"#&lt;<span class="subst">#&#123;scripts[$1.to_i][<span class="number">1</span>]&#125;</span>&gt;"</span>&#125;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  msgbox [$!.<span class="keyword">class</span>, <span class="string">"-"</span> * <span class="number">80</span>, $!.message, <span class="string">"-"</span> * <span class="number">80</span>, t].flatten.join(<span class="string">"\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-eval-collect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -864,163 +1188,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-err-stack-collect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烁灵SureBrz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="麦甜甜圈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/11/rm-err-stack-collect/" itemprop="url">【转载】RPG Maker通用脚本收集-打印异常堆栈</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T13:47:36+08:00">
-                2019-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/RPG-Maker/" itemprop="url" rel="index">
-                    <span itemprop="name">RPG Maker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/11/rm-err-stack-collect/" class="leancloud_visitors" data-flag-title="【转载】RPG Maker通用脚本收集-打印异常堆栈">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原地址：<a href="https://rpg.blue/thread-409158-1-1.html" target="_blank" rel="noopener">https://rpg.blue/thread-409158-1-1.html</a><br>原作者: SailCat</p>
-<p>用于显示异常堆栈详情。</p>
-<p><strong>脚本内容根据评论有修改。</strong></p>
-<p>VA版脚本:<br>用法：替换main脚本</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span></span><br><span class="line">  rgss_main &#123; SceneManager.run &#125; </span><br><span class="line"><span class="keyword">rescue</span> StandardError</span><br><span class="line">  <span class="comment"># 加载脚本数据结构</span></span><br><span class="line">  scripts = $RGSS_SCRIPTS</span><br><span class="line">  <span class="comment"># 显示出错详细信息</span></span><br><span class="line">  t = $!.backtrace.collect <span class="keyword">do</span> <span class="params">|s|</span> </span><br><span class="line">    s.sub(<span class="regexp">/^&#123;([0-9]+)&#125;/</span>) &#123;<span class="string">"#&lt;<span class="subst">#&#123;scripts[$1.to_i][<span class="number">1</span>]&#125;</span>&gt;"</span>&#125;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  msgbox [$!.<span class="keyword">class</span>, <span class="string">"-"</span> * <span class="number">80</span>, $!.message, <span class="string">"-"</span> * <span class="number">80</span>, t].flatten.join(<span class="string">"\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-          
         
       
     </div>
@@ -1744,164 +1911,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2018/08/20/self-border-u3d-shader/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烁灵SureBrz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="麦甜甜圈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/20/self-border-u3d-shader/" itemprop="url">Unity自用2D像素图描边Shader</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T13:05:59+08:00">
-                2018-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity3D/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity3D</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/08/20/self-border-u3d-shader/" class="leancloud_visitors" data-flag-title="Unity自用2D像素图描边Shader">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Shader 学习中，基于 Sprite-Default。</p>
-<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="http://wx3.sinaimg.cn/mw690/a94a86cbly1fug36u6j6mj209m07n3yi.jpg" alt="img"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/20/self-border-u3d-shader/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1952,7 +1961,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1974,7 +1983,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2001,7 +2010,7 @@
             <ul class="links-of-blogroll-list">
               
                 <li class="links-of-blogroll-item">
-                  <a href="http://blog.yoyoyo.me" title="三途河畔" target="_blank">三途河畔</a>
+                  <a href="http://blog.yoyoyo.me" title="橡皮擦擦" target="_blank">橡皮擦擦</a>
                 </li>
               
                 <li class="links-of-blogroll-item">
