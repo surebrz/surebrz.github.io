@@ -97,7 +97,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="麦甜甜圈">
-<meta property="og:url" content="http://www.surebrz.com/tags/sdk/index.html">
+<meta property="og:url" content="http://www.surebrz.com/tags/SDK/index.html">
 <meta property="og:site_name" content="麦甜甜圈">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://www.surebrz.com/tags/sdk/"/>
+  <link rel="canonical" href="http://www.surebrz.com/tags/SDK/"/>
 
 
 
 
 
-  <title>标签: sdk | 麦甜甜圈</title>
+  <title>标签: SDK | 麦甜甜圈</title>
   
 
 
@@ -272,7 +272,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>sdk<small>标签</small>
+        <h1>SDK<small>标签</small>
         </h1>
       </div>
 
@@ -284,9 +284,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2016/04/07/about-WGSendToWeixin-function-not-permission/" itemprop="url">
+            <a class="post-title-link" href="/2016/02/25/WakefulBroadcastReceiver-v4-support/" itemprop="url">
               
-                <span itemprop="name">关于微信分享时报错 “WGSendToWeixin function not permission”</span>
+                <span itemprop="name">解决“WakefulBroadcastReceiver cannot be resolved to a type”问题</span>
               
             </a>
         
@@ -294,9 +294,37 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2016-04-07T18:41:50+08:00"
-              content="2016-04-07" >
-          04-07
+              datetime="2016-02-25T10:08:55+08:00"
+              content="2016-02-25" >
+          02-25
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2015/11/10/import-facebookSDK4-6-0-into-adt/" itemprop="url">
+              
+                <span itemprop="name">ADT导入FacebookSDK4.6.0</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2015-11-10T10:15:45+08:00"
+              content="2015-11-10" >
+          11-10
         </time>
       </div>
 
@@ -558,7 +586,7 @@
   
 
     
-      <script id="dsq-count-scr" src="https://麦甜甜圈.disqus.com/count.js" async></script>
+      <script id="dsq-count-scr" src="https://surebrz.disqus.com/count.js" async></script>
     
 
     
@@ -673,44 +701,6 @@
               success: function(newcounter) {
                 var $element = $(document.getElementById(url));
                 $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-</body>
-</html>
-$element.find('.leancloud-visitors-count').text(newcounter.get('time'));
               },
               error: function(newcounter, error) {
                 console.log('Failed to create');
