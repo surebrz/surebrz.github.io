@@ -281,6 +281,315 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2020/01/10/point-to-lines-pos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/10/point-to-lines-pos/" itemprop="url">点到线段的最短位置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-10T21:23:58+08:00">
+                2020-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/10/point-to-lines-pos/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/01/10/point-to-lines-pos/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/01/10/point-to-lines-pos/" class="leancloud_visitors" data-flag-title="点到线段的最短位置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>计算点到线段的最短位置，效果如下：</p>
+<p><div style="text-align:center;background-color:#1e576b"><br>    <canvas id="point_to_lines_pos_canvas"></canvas><br></div></p>
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+<script type="text/javascript">
+    /**
+    * 定义向量
+    */
+    var Vec2 = function(x, y) {
+        this.x = x;
+        this.y = y;
+    };
+    Vec2.prototype.add = function(vector, out) {
+        out = out || new Vec2();
+        out.x = this.x + vector.x;
+        out.y = this.y + vector.y;
+        return out;
+    };
+
+    Vec2.prototype.sub = function (vector, out) {
+        out = out || new Vec2();
+        out.x = this.x - vector.x;
+        out.y = this.y - vector.y;
+        return out;
+    };
+
+    Vec2.prototype.magSqr = function () {
+        return this.x * this.x + this.y * this.y;
+    };
+
+    Vec2.prototype.mul = function (num, out) {
+        out = out || new Vec2();
+        out.x = this.x * num;
+        out.y = this.y * num;
+        return out;
+    };
+
+    Vec2.prototype.dot = function (vector) {
+        return this.x * vector.x + this.y * vector.y;
+    };
+
+    Vec2.prototype.project = function (vector) {
+        return vector.mul(this.dot(vector) / vector.dot(vector));
+    };
+
+    /**
+     * 计算点到直线距离最短的点（垂足或离点最近的两端点）
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} x1 
+     * @param {*} y1 
+     * @param {*} x2 
+     * @param {*} y2 
+     */
+    function calcShortestPoint(x, y, x1, y1, x2, y2) {
+        var op = new Vec2(x, y);
+        var op1 = new Vec2(x1, y1);
+        var op2 = new Vec2(x2, y2);
+
+        // 做垂足
+        var p1p2 = op2.sub(op1);
+        var p1p = op.sub(op1);
+        var p2p = op.sub(op2);
+        var proj_pp2_p1p2 = p2p.project(p1p2);
+        var ot = op2.add(proj_pp2_p1p2);    // t的坐标
+        // 计算距离
+        var pt = op.sub(ot);
+        var tp1 = op1.sub(ot);
+        var tp2 = op2.sub(ot);
+        var len2_pp1 = p1p.magSqr();
+        var len2_pp2 = p2p.magSqr();
+        var len2_pt = pt.magSqr();
+        var pos = [op1, op2, ot][[len2_pp1, len2_pp2, len2_pt].indexOf(Math.min(len2_pp1, len2_pp2, len2_pt))];
+        // 判断垂足点在线段内
+        if (tp1.magSqr() + tp2.magSqr() - p1p2.magSqr() > 0) {
+            pos = [op1, op2][[len2_pp1, len2_pp2].indexOf(Math.min(len2_pp1, len2_pp2))];
+        }
+        return pos;
+    }
+    var positions = null;
+    var lastPos = null;
+    function draw(fillWidth, fillHeight) {
+        var canvas = document.getElementById('point_to_lines_pos_canvas');
+        var ctx=canvas.getContext('2d');
+        ctx.clearRect(0, 0, fillWidth, fillHeight);
+        ctx.strokeStyle="#FFFFFF";
+        ctx.strokeRect(0, 0, fillWidth, fillHeight);
+        var center = new Vec2(fillWidth / 2, fillHeight / 2);
+        var shortest = 1/0;
+        positions = positions || [new Vec2(Math.random() * fillWidth, Math.random() * fillHeight), new Vec2(Math.random() * fillWidth, Math.random() * fillHeight)];
+        if (positions.length >= 2) {
+            for (var i = 0; i < positions.length - 1; i += 1) {
+                var p1 = positions[i];
+                var p2 = positions[i + 1];
+                var calcP = calcShortestPoint(center.x, center.y, p1.x, p1.y, p2.x, p2.y);
+                var center_calcP = center.sub(calcP);
+                if (shortest > center_calcP.magSqr()) {
+                    lastPos = calcP;
+                    shortest = center_calcP.magSqr();
+                }
+                ctx.beginPath();
+                ctx.strokeStyle="#FFFFFF";
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+                ctx.strokeStyle="#00FF00";
+                ctx.strokeRect(center.x, center.y, 1, 1);
+                ctx.strokeStyle="#0000FF";
+                ctx.strokeRect(p1.x, p1.y, 1, 1);
+                ctx.strokeRect(p2.x, p2.y, 1, 1);
+            }
+            ctx.beginPath();
+            ctx.strokeStyle="#FFFFFF";
+            ctx.moveTo(center.x, center.y);
+            ctx.lineTo(lastPos.x, lastPos.y);
+            ctx.stroke();
+        } else if (positions.length > 0) {
+            ctx.strokeStyle="#0000FF";
+            ctx.strokeRect(positions[0].x, positions[0].y, 1, 1);
+            ctx.strokeStyle="#00FF00";
+            ctx.strokeRect(center.x, center.y, 1, 1);
+        }
+    }
+    $(document).ready(function() {
+        var w = 17;
+        var h = 17;
+        var border = 24;
+        var fillWidth = border * w;
+        var fillHeight = border * h;
+        $("#point_to_lines_pos_canvas").attr("height", fillHeight + "px");
+        $("#point_to_lines_pos_canvas").attr("width", fillWidth + "px");
+        $("#point_to_lines_pos_canvas").click(function(event) {
+            positions.push(new Vec2(event.offsetX, event.offsetY));
+            draw(fillWidth, fillHeight);
+        });
+        draw(fillWidth, fillHeight);
+    });
+
+</script>
+
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 定义向量</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> Vec2 = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.x = x;</span><br><span class="line">	<span class="keyword">this</span>.y = y;</span><br><span class="line">&#125;;</span><br><span class="line">Vec2.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">vector, out</span>) </span>&#123;</span><br><span class="line">       out = out || <span class="keyword">new</span> Vec2();</span><br><span class="line">       out.x = <span class="keyword">this</span>.x + vector.x;</span><br><span class="line">       out.y = <span class="keyword">this</span>.y + vector.y;</span><br><span class="line">       <span class="keyword">return</span> out;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">   Vec2.prototype.sub = <span class="function"><span class="keyword">function</span> (<span class="params">vector, out</span>) </span>&#123;</span><br><span class="line">       out = out || <span class="keyword">new</span> Vec2();</span><br><span class="line">       out.x = <span class="keyword">this</span>.x - vector.x;</span><br><span class="line">       out.y = <span class="keyword">this</span>.y - vector.y;</span><br><span class="line">       <span class="keyword">return</span> out;</span><br><span class="line">   &#125;;</span><br><span class="line"></span><br><span class="line">Vec2.prototype.magSqr = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.x * <span class="keyword">this</span>.x + <span class="keyword">this</span>.y * <span class="keyword">this</span>.y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Vec2.prototype.mul = <span class="function"><span class="keyword">function</span> (<span class="params">num, out</span>) </span>&#123;</span><br><span class="line">	out = out || <span class="keyword">new</span> Vec2();</span><br><span class="line">	out.x = <span class="keyword">this</span>.x * num;</span><br><span class="line">	out.y = <span class="keyword">this</span>.y * num;</span><br><span class="line">	<span class="keyword">return</span> out;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Vec2.prototype.dot = <span class="function"><span class="keyword">function</span> (<span class="params">vector</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.x * vector.x + <span class="keyword">this</span>.y * vector.y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Vec2.prototype.project = <span class="function"><span class="keyword">function</span> (<span class="params">vector</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> vector.mul(<span class="keyword">this</span>.dot(vector) / vector.dot(vector));</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 计算点到直线距离最短的点（垂足或离点最近的两端点）</span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; x </span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; y </span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; x1 </span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; y1 </span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; x2 </span></span><br><span class="line"><span class="comment">    * @param &#123;*&#125; y2 </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">calcShortestPoint</span>(<span class="params">x, y, x1, y1, x2, y2</span>) </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> op = <span class="keyword">new</span> Vec2(x, y);</span><br><span class="line">       <span class="keyword">var</span> op1 = <span class="keyword">new</span> Vec2(x1, y1);</span><br><span class="line">       <span class="keyword">var</span> op2 = <span class="keyword">new</span> Vec2(x2, y2);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 做垂足</span></span><br><span class="line">       <span class="keyword">var</span> p1p2 = op2.sub(op1);</span><br><span class="line">       <span class="keyword">var</span> p1p = op.sub(op1);</span><br><span class="line">       <span class="keyword">var</span> p2p = op.sub(op2);</span><br><span class="line">       <span class="keyword">var</span> proj_pp2_p1p2 = p2p.project(p1p2);</span><br><span class="line">       <span class="keyword">var</span> ot = op2.add(proj_pp2_p1p2);    <span class="comment">// t的坐标</span></span><br><span class="line">	<span class="comment">// 计算距离</span></span><br><span class="line">       <span class="keyword">var</span> pt = op.sub(ot);</span><br><span class="line">	<span class="keyword">var</span> tp1 = op1.sub(ot);</span><br><span class="line">	<span class="keyword">var</span> tp2 = op2.sub(ot);</span><br><span class="line">	<span class="keyword">var</span> len2_pp1 = p1p.magSqr();</span><br><span class="line">	<span class="keyword">var</span> len2_pp2 = p2p.magSqr();</span><br><span class="line">	<span class="keyword">var</span> len2_pt = pt.magSqr();</span><br><span class="line">	<span class="keyword">var</span> pos = [op1, op2, ot][[len2_pp1, len2_pp2, len2_pt].indexOf(<span class="built_in">Math</span>.min(len2_pp1, len2_pp2, len2_pt))];</span><br><span class="line">       <span class="comment">// 判断垂足点在线段内</span></span><br><span class="line">	<span class="keyword">if</span> (tp1.magSqr() + tp2.magSqr() - p1p2.magSqr() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		pos = [op1, op2][[len2_pp1, len2_pp2].indexOf(<span class="built_in">Math</span>.min(len2_pp1, len2_pp2))];</span><br><span class="line">	&#125;</span><br><span class="line">       <span class="keyword">return</span> pos;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="算法解析"><a href="#算法解析" class="headerlink" title="算法解析"></a>算法解析</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/01/10/point-to-lines-pos/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/09/04/ccc-metaball-liquid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1303,6 +1612,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-err-stack-collect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="烁灵SureBrz">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="麦甜甜圈">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/11/rm-err-stack-collect/" itemprop="url">【转载】RPG Maker通用脚本收集-打印异常堆栈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T13:47:36+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RPG-Maker/" itemprop="url" rel="index">
+                    <span itemprop="name">RPG Maker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/11/rm-err-stack-collect/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/04/11/rm-err-stack-collect/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/04/11/rm-err-stack-collect/" class="leancloud_visitors" data-flag-title="【转载】RPG Maker通用脚本收集-打印异常堆栈">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>原地址：<a href="https://rpg.blue/thread-409158-1-1.html" target="_blank" rel="noopener">https://rpg.blue/thread-409158-1-1.html</a><br>原作者: SailCat</p>
+<p>用于显示异常堆栈详情。</p>
+<p><strong>脚本内容根据评论有修改。</strong></p>
+<p>VA版脚本:<br>用法：替换main脚本</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span></span><br><span class="line">  rgss_main &#123; SceneManager.run &#125; </span><br><span class="line"><span class="keyword">rescue</span> StandardError</span><br><span class="line">  <span class="comment"># 加载脚本数据结构</span></span><br><span class="line">  scripts = $RGSS_SCRIPTS</span><br><span class="line">  <span class="comment"># 显示出错详细信息</span></span><br><span class="line">  t = $!.backtrace.collect <span class="keyword">do</span> <span class="params">|s|</span> </span><br><span class="line">    s.sub(<span class="regexp">/^&#123;([0-9]+)&#125;/</span>) &#123;<span class="string">"#&lt;<span class="subst">#&#123;scripts[$1.to_i][<span class="number">1</span>]&#125;</span>&gt;"</span>&#125;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  msgbox [$!.<span class="keyword">class</span>, <span class="string">"-"</span> * <span class="number">80</span>, $!.message, <span class="string">"-"</span> * <span class="number">80</span>, t].flatten.join(<span class="string">"\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-eval-collect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1426,174 +1903,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2019/04/11/rm-err-stack-collect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烁灵SureBrz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="麦甜甜圈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/11/rm-err-stack-collect/" itemprop="url">【转载】RPG Maker通用脚本收集-打印异常堆栈</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T13:47:36+08:00">
-                2019-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/RPG-Maker/" itemprop="url" rel="index">
-                    <span itemprop="name">RPG Maker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/04/11/rm-err-stack-collect/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/04/11/rm-err-stack-collect/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2019/04/11/rm-err-stack-collect/" class="leancloud_visitors" data-flag-title="【转载】RPG Maker通用脚本收集-打印异常堆栈">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>原地址：<a href="https://rpg.blue/thread-409158-1-1.html" target="_blank" rel="noopener">https://rpg.blue/thread-409158-1-1.html</a><br>原作者: SailCat</p>
-<p>用于显示异常堆栈详情。</p>
-<p><strong>脚本内容根据评论有修改。</strong></p>
-<p>VA版脚本:<br>用法：替换main脚本</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span></span><br><span class="line">  rgss_main &#123; SceneManager.run &#125; </span><br><span class="line"><span class="keyword">rescue</span> StandardError</span><br><span class="line">  <span class="comment"># 加载脚本数据结构</span></span><br><span class="line">  scripts = $RGSS_SCRIPTS</span><br><span class="line">  <span class="comment"># 显示出错详细信息</span></span><br><span class="line">  t = $!.backtrace.collect <span class="keyword">do</span> <span class="params">|s|</span> </span><br><span class="line">    s.sub(<span class="regexp">/^&#123;([0-9]+)&#125;/</span>) &#123;<span class="string">"#&lt;<span class="subst">#&#123;scripts[$1.to_i][<span class="number">1</span>]&#125;</span>&gt;"</span>&#125;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  msgbox [$!.<span class="keyword">class</span>, <span class="string">"-"</span> * <span class="number">80</span>, $!.message, <span class="string">"-"</span> * <span class="number">80</span>, t].flatten.join(<span class="string">"\n"</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-          
         
       
     </div>
@@ -1844,179 +2153,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.surebrz.com/2018/11/06/unity-shader-plane/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="烁灵SureBrz">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/default_avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="麦甜甜圈">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/unity-shader-plane/" itemprop="url">Unity循环图片Shader</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T16:36:30+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity3D/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity3D</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/11/06/unity-shader-plane/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/11/06/unity-shader-plane/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/11/06/unity-shader-plane/" class="leancloud_visitors" data-flag-title="Unity循环图片Shader">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>循环图 Shader</p>
-<ul>
-<li>将需要的图拖到Loop贴图上，MainTex用于控制区域大小，本身不显示</li>
-</ul>
-<h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p><img src="http://wx2.sinaimg.cn/mw690/a94a86cbly1fwyfmnev37g20a507w1ky.gif" alt="效果"></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/06/unity-shader-plane/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2067,7 +2203,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2089,7 +2225,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -2149,7 +2285,7 @@
         <div class="copyright" >
   
   &copy;  2013 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
